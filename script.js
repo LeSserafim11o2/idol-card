@@ -548,7 +548,7 @@ function openCard() {
     resetCard();
     btn.disabled = true;
     siu.disabled = true;
-    const randomIdol = idols[Math.floor(Math.random() * idols.length)];
+    let randomIdol = getRandomIdol(idols);
     card.classList.remove("glow-gold", "glow-pink", "glow-white", "glow-blue", "glow-purple", "glow-black");
     if (randomIdol.season.includes("ICONS")) {
         card.classList.add("glow-gold"); // Sáng vàng
