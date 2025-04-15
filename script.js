@@ -641,12 +641,12 @@ function openCongratulation() {
     vitas.play();
 }
 const seasonRates = {
-    "IZ*ONE SPECIAL": 0.000001, // 0.000001%
-    "ICONS": 0.1, // 0.1%
-    "TOP STARS": 0.1, // 0.1%
-    "NEW GEN": 21.03, // 21.03%
-    "UNSUNG IDOLS": 38.90, // 38.90%
-    "NATIONALLY": 39.87 // 39.87%
+    "IZ*ONE SPECIAL": 0.000001, // Giữ cực hiếm
+    "ICONS": 0.1,               // Hiếm, huyền thoại
+    "TOP STARS": 0.15,          // Hơi dễ hơn ICONS
+    "NEW GEN": 15.0,            // Giảm để đặc biệt hơn
+    "UNSUNG IDOLS": 30.0,       // Giảm để cân bằng
+    "NATIONALLY": 54.749999     // Tăng để tổng = 100%
 };
 const groupRatesBySeason = {
     "IZ*ONE SPECIAL": { 
@@ -695,17 +695,17 @@ const groupRatesBySeason = {
         "KARA": 0.075,
         "After School": 0.1,
         "Secret": 0.1,
-        "CLC": 0.5,
+        "CLC": 0.05,
         "Oh My Girl": 0.075,
         "AOA": 0.075,
         "Weeekly": 0.075,
         "Girl's Day": 0.075,
-        "Dreamcatcher": 0.5,
+        "Dreamcatcher": 0.05,
         "WJSN": 0.075,
         "Loona": 0.075,
         "StayC": 0.075,
-        "Brown Eyed Girls": 0.5,
-        "Fromis 9": 0.5
+        "Brown Eyed Girls": 0.05,
+        "Fromis 9": 0.05
     }
 };
 function mapImageToGroup(imagePath) {
