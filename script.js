@@ -641,12 +641,12 @@ function openCongratulation() {
     vitas.play();
 }
 const seasonRates = {
-    "IZ*ONE SPECIAL": 0.000001, // Giữ cực hiếm
-    "ICONS": 0.1,               // Hiếm, huyền thoại
-    "TOP STARS": 0.15,          // Hơi dễ hơn ICONS
-    "NEW GEN": 15.0,            // Giảm để đặc biệt hơn
-    "UNSUNG IDOLS": 30.0,       // Giảm để cân bằng
-    "NATIONALLY": 54.749999     // Tăng để tổng = 100%
+    "IZ*ONE SPECIAL": 0.0001,
+    "ICONS": 0.005,
+    "TOP STARS": 0.0075,
+    "NEW GEN": 0.1484,
+    "UNSUNG IDOLS": 0.2968,
+    "NATIONALLY": 0.5422
 };
 const groupRatesBySeason = {
     "IZ*ONE SPECIAL": { 
