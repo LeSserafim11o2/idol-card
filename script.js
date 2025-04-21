@@ -641,12 +641,12 @@ function openCongratulation() {
     vitas.play();
 }
 const seasonRates = {
-    "IZ*ONE SPECIAL": 0.0001,
-    "ICONS": 0.005,
-    "TOP STARS": 0.0075,
-    "NEW GEN": 0.1484,
-    "UNSUNG IDOLS": 0.2968,
-    "NATIONALLY": 0.5422
+    "IZ*ONE SPECIAL": 0.01,
+    "ICONS": 0.04,
+    "TOP STARS": 0.05,
+    "NEW GEN": 0.3,
+    "UNSUNG IDOLS": 0.3,
+    "NATIONALLY": 0.3
 };
 const groupRatesBySeason = {
     "IZ*ONE SPECIAL": { 
