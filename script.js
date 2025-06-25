@@ -606,11 +606,11 @@ function openCard() {
 }
 function resetCard() {
     name.innerText = "Idol Kpop";
-    group.src = "./Picture/WhiteBG.jpg";
+    group.src = "";
     role.innerText = "Role";
     season.innerText = "Season";
-    avatar.src = "./Picture/AvatarNoFace.jpg";
-    country.src = "./Picture/WhiteBG.jpg";
+    avatar.src = "";
+    country.src = "";
     vocal.innerText = "🎤 Vocal: N/A";
     rap.innerText = "🎧 Rap: N/A";
     dance.innerText = "💃 Dance: N/A";
