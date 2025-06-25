@@ -17,6 +17,7 @@ const viral = card.querySelector(".viral");
 const overall = card.querySelector(".overall");
 const btn = document.getElementById("open-btn");
 const siu = document.getElementById("siu-btn");
+const loadingOverlay = document.getElementById("loading-overlay");
 
 // Audio setup
 const audio = new Audio("./Music/AiLaTrieuPhu.mp3");
@@ -144,6 +145,18 @@ function applyEffect(card) {
     setTimeout(() => card.classList.add("show-image"), 50);
 }
 
+function preloadImages(urls) {
+    const promises = urls.map(
+        url => new Promise(resolve => {
+            const img = new Image();
+            img.src = url;
+            img.onload = resolve;
+            img.onerror = resolve; // Resolve luôn nếu lỗi, để không kẹt
+        })
+    );
+    return Promise.all(promises);
+}
+
 // Reset card to initial state
 function resetCard() {
     name.innerText = "Idol Kpop";
@@ -165,16 +178,30 @@ function resetCard() {
     );
 }
 
+function showLoading() {
+    loadingOverlay.classList.add("show");
+}
+
+function hideLoading() {
+    loadingOverlay.classList.remove("show");
+}
 // Main card opening function
-function openCard() {
+async function openCard() {
+    resetCard();
     applyEffect(card);
     playMusic();
-    resetCard();
     btn.disabled = true;
     siu.disabled = true;
-    
+
+    showLoading();
+
     const randomIdol = getRandomIdol();
-    
+
+    const imagesToLoad = [randomIdol.img, randomIdol.flag, randomIdol.group];
+    await preloadImages(imagesToLoad); // Đợi ảnh load
+
+    hideLoading();
+
     // Apply glow effect based on season
     card.classList.remove("glow-gold", "glow-pink", "glow-white", "glow-blue", "glow-purple", "glow-black");
     const glowMap = {
@@ -187,23 +214,22 @@ function openCard() {
     };
     const glowClass = glowMap[randomIdol.season];
     if (glowClass) card.classList.add(glowClass);
-    
-    // Reveal information with timing
+
+    // Reveal info with delay
     setTimeout(() => {
         country.src = randomIdol.flag;
         country.classList.add("show-image");
     }, 2000);
-    
+
     setTimeout(() => {
         season.innerText = randomIdol.season;
         season.classList.add("show");
     }, 4000);
-    
+
     setTimeout(() => {
         role.innerText = randomIdol.role;
         role.classList.add("show");
-        
-        // Stats
+
         vocal.innerText = `🎤 Vocal: ${randomIdol.stats.vocal}`;
         rap.innerText = `🎧 Rap: ${randomIdol.stats.rap}`;
         dance.innerText = `💃 Dance: ${randomIdol.stats.dance}`;
@@ -211,17 +237,17 @@ function openCard() {
         fan.innerText = `👥 Fan: ${randomIdol.stats.fan}`;
         viral.innerText = `🔥 Viral: ${randomIdol.stats.viral}`;
         overall.innerText = randomIdol.stats.overall;
-        
-        [role, vocal, rap, dance, visual, fan, viral, overall].forEach(el => 
+
+        [role, vocal, rap, dance, visual, fan, viral, overall].forEach(el =>
             el.classList.add("show")
         );
     }, 6000);
-    
+
     setTimeout(() => {
         group.src = randomIdol.group;
         group.classList.add("show-image");
     }, 8000);
-    
+
     setTimeout(() => {
         name.innerText = randomIdol.name;
         name.classList.add("show");
