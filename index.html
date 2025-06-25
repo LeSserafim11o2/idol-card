@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Open Card Idol</title>
-    <link rel="icon" href="../Groups/Images/kpoplogo.jpg" type="icon/jpg">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -15,13 +14,13 @@
             <div class="info">
                 <div class="info-text">
                     <p class="overall">N/A</p>
-                    <img src="" alt="Idol" class="group">
+                    <img src="" alt="Idol" class="group" loading="lazy">
                     <p class="role">Role</p>
                     <p class="season">Season</p>
                 </div>
                 <div class="info-image">
-                    <img class="avatar" src="" alt="AvatarNoFace">
-                    <img class="country" src="" alt="Quốc tịch" width="50">
+                    <img class="avatar" src="" alt="Avatar" loading="lazy">
+                    <img class="country" src="" alt="Quốc tịch" width="50" loading="lazy">
                 </div>
             </div>
             <div class="stats">
@@ -38,10 +37,10 @@
                 </div>
             </div>
         </div>
-        <button class="btn" id="open-btn" onclick="openCard()">Open Pack</button>
-        <button class="btn" id="siu-btn" onclick="openCongratulation()">Congratulation</button>
+        <button class="btn" id="open-btn">Open Pack</button>
+        <button class="btn" id="siu-btn">Congratulation</button>
     </div>
 
-    <script src="script.js" defer></script>
+    <script src="script.js" type="module" defer></script>
 </body>
 </html>
