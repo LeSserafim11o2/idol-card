@@ -19,6 +19,12 @@ const btn = document.getElementById("open-btn");
 const siu = document.getElementById("siu-btn");
 const loadingOverlay = document.getElementById("loading-overlay");
 
+const historyGrid = document.getElementById("history-grid");
+const clearHistoryBtn = document.getElementById("clear-history");
+const confirmModal = document.getElementById("confirm-modal");
+const confirmDelete = document.getElementById("confirm-delete");
+const cancelDelete = document.getElementById("cancel-delete");
+
 // Audio setup
 const audio = new Audio("./Music/AiLaTrieuPhu.mp3");
 const vitas = new Audio("./Music/vitas_7th_element.mp3");
@@ -193,12 +199,14 @@ async function openCard() {
     btn.disabled = true;
     siu.disabled = true;
 
+    
+
     showLoading();
 
     const randomIdol = getRandomIdol();
 
     const imagesToLoad = [randomIdol.img, randomIdol.flag, randomIdol.group];
-    await preloadImages(imagesToLoad); // Đợi ảnh load
+    await preloadImages(imagesToLoad);
 
     hideLoading();
 
@@ -255,9 +263,85 @@ async function openCard() {
         avatar.classList.add("show-image");
         btn.disabled = false;
         siu.disabled = false;
+        saveToHistory(randomIdol);
     }, 10000);
 }
 
 // Event listeners
 btn.addEventListener("click", openCard);
 siu.addEventListener("click", openCongratulation);
+
+function saveToHistory(idol) {
+    let history = JSON.parse(localStorage.getItem("idolHistory") || "[]");
+    history.unshift({
+        name: idol.name,
+        season: idol.season,
+        group: idol.group,
+        avatar: idol.img,
+        overall: idol.stats.overall,
+        country: idol.flag,
+        timestamp: new Date().toLocaleString()
+    });
+    history = history.slice(0, 50);
+    localStorage.setItem("idolHistory", JSON.stringify(history));
+    renderHistory();
+}
+
+function renderHistory() {
+    const history = JSON.parse(localStorage.getItem("idolHistory") || "[]");
+    historyGrid.innerHTML = "";
+    const glowMap = {
+        "ICONS": "glow-gold",
+        "IZ*ONE SPECIAL": "glow-pink",
+        "NEW GEN": "glow-white",
+        "UNSUNG IDOLS": "glow-blue",
+        "NATIONALLY": "glow-purple",
+        "TOP STARS": "glow-black"
+    };
+    history.forEach(entry => {
+        const div = document.createElement("div");
+        div.className = `history-card ${glowMap[entry.season] || ""}`;
+        div.innerHTML = `
+            <img src="${entry.avatar}" alt="${entry.name}" class="history-card-avatar">
+            <h3>${entry.name}</h3>
+            <div class="history-card-group-wrapper"><img src="${entry.group}" alt="${entry.name}" class="history-card-group"></div>
+            <p>${entry.season}</p>
+            <h2>${entry.overall}</h2>
+            <img src="${entry.country}" alt="${entry.country}" class="history-card-country">
+        `;
+        historyGrid.appendChild(div);
+    });
+}
+
+renderHistory();
+
+function lockBodyScroll() {
+    document.body.style.overflow = "hidden";
+}
+function unlockBodyScroll() {
+    document.body.style.overflow = "";
+}
+
+clearHistoryBtn.addEventListener("click", () => {
+    confirmModal.classList.remove("hidden");
+    lockBodyScroll();
+});
+
+confirmDelete.addEventListener("click", () => {
+    localStorage.removeItem("idolHistory");
+    renderHistory();
+    confirmModal.classList.add("hidden");
+    unlockBodyScroll();
+});
+
+cancelDelete.addEventListener("click", () => {
+    confirmModal.classList.add("hidden");
+    unlockBodyScroll();
+});
+
+confirmModal.addEventListener("click", (e) => {
+    if (e.target === confirmModal) {
+        confirmModal.classList.add("hidden");
+        unlockBodyScroll();
+    }
+});

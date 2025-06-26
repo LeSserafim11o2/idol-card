@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Open Card Idol</title>
+    <link rel="icon" href="./Music/kpop.png" type="image/png">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -44,6 +45,20 @@
         </div>
         <button class="btn" id="open-btn">Open Pack</button>
         <button class="btn" id="siu-btn">Congratulation</button>
+    </div>
+
+    <div class="history-container">
+        <h2>Open Card History</h2>
+        <button id="clear-history" class="btn">Delete History</button>
+        <div id="history-grid" class="history-grid"></div>
+    </div>
+
+    <div id="confirm-modal" class="modal hidden">
+        <div class="modal-content">
+            <p>Are you sure to delete history?</p>
+            <button id="confirm-delete" class="btn">Remove</button>
+            <button id="cancel-delete" class="btn">Cancel</button>
+        </div>
     </div>
 
     <script src="script.js" type="module" defer></script>
