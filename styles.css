@@ -354,6 +354,15 @@ h1 {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+@media screen and (max-width: 450px) {
+    .history-card img.history-card-avatar {
+        height: 400px;
+    }
+    .history-card .history-card-group-wrapper {
+        width: 180px;
+        height: 100px;
+    }
+}
 @media screen and (max-width: 740px) {
     .card {
         width: 90%;
