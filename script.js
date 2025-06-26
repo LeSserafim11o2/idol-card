@@ -304,8 +304,8 @@ function renderHistory() {
         div.innerHTML = `
             <img src="${entry.avatar}" alt="${entry.name}" class="history-card-avatar">
             <h3>${entry.name}</h3>
-            <div class="history-card-group-wrapper"><img src="${entry.group}" alt="${entry.name}" class="history-card-group"></div>
             <p>${entry.season}</p>
+            <div class="history-card-group-wrapper"><img src="${entry.group}" alt="${entry.name}" class="history-card-group"></div>
             <h2>${entry.overall}</h2>
             <img src="${entry.country}" alt="${entry.country}" class="history-card-country">
         `;

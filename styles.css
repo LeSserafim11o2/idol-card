@@ -273,22 +273,23 @@ h1 {
     font-weight: bold;
     color: #333;
     font-size: 20px;
+    margin-bottom: 12px;
 }
 .history-card p {
-    font-weight: 300;
+    font-weight: 400;
     color: #444;
     font-size: 16px;
 }
 .history-card .history-card-group-wrapper {
-    width: 80%;
-    height: 100px;
+    width: 70%;
+    height: 120px;
     border-radius: 6px;
-    margin: 0 auto 5px;
+    margin: 10px auto 0;
     overflow: visible;
 }
 .history-card .history-card-group-wrapper .history-card-group {
     width: 100%;
-    height: 100%;
+    height: 70%;
     object-fit: cover;
     padding: 6px;
 }
@@ -360,7 +361,7 @@ h1 {
     }
     .history-card .history-card-group-wrapper {
         width: 180px;
-        height: 100px;
+        height: 140px;
     }
 }
 @media screen and (max-width: 740px) {
