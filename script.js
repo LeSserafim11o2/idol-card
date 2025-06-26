@@ -25,6 +25,16 @@ const confirmModal = document.getElementById("confirm-modal");
 const confirmDelete = document.getElementById("confirm-delete");
 const cancelDelete = document.getElementById("cancel-delete");
 
+let skip = false;
+let timeouts = [];
+
+const skipBtn = document.getElementById("skip-btn");
+
+function clearAllTimeouts() {
+    timeouts.forEach(clearTimeout);
+    timeouts = [];
+}
+
 // Audio setup
 const audio = new Audio("./Music/AiLaTrieuPhu.mp3");
 const vitas = new Audio("./Music/vitas_7th_element.mp3");
@@ -51,16 +61,16 @@ const processedIdols = idols.map(idol => {
     } else if (idol.group.includes("Blackpink")) {
         stats.vocal += 7; stats.rap += 7; stats.visual += 7; stats.dance += 7;
         stats.fan += 9; stats.viral += 9;
-    } else if (idol.group.includes("RedVelvet")) {
+    } else if (idol.group.includes("Red-Velvet")) {
         stats.vocal += 9; stats.rap += 9; stats.visual += 9; stats.dance += 9;
         stats.fan += 11; stats.viral += 11;
     } else if (idol.group.includes("Twice")) {
         stats.vocal += 8; stats.rap += 8; stats.visual += 8; stats.dance += 8;
         stats.fan += 10; stats.viral += 10;
-    } else if (idol.group.includes("4Minute") || idol.group.includes("Gidle") || 
-               idol.group.includes("Ive") || idol.group.includes("H2H") || 
+    } else if (idol.group.includes("4-Minute") || idol.group.includes("Gidle") || 
+               idol.group.includes("Ive") || idol.group.includes("Hearts2-Hearts") || 
                idol.group.includes("Fromis9")) {
-        Object.keys(stats).forEach(key => key !== 'overall' && (stats[key] += 2));
+        Object.keys(stats).forEach(key => key !== 'overall' && (stats[key] += 3));
     } else if (idol.group.includes("BEG")) {
         stats.vocal += 4; stats.rap += 4; stats.visual += 4; stats.dance += 4;
         stats.fan += 2; stats.viral += 2;
@@ -71,7 +81,7 @@ const processedIdols = idols.map(idol => {
     } else if (idol.group.includes("Tara") || idol.group.includes("2NE1")) {
         stats.vocal += 8; stats.rap += 8; stats.visual += 8; stats.dance += 8;
         stats.fan += 10; stats.viral += 10;
-    } else if (idol.group.includes("LeSserafim") || idol.group.includes("Gfriend") ||
+    } else if (idol.group.includes("Le-Sserafim") || idol.group.includes("Gfriend") ||
                idol.group.includes("Itzy") || idol.group.includes("Sistar") ||
                idol.group.includes("Kara")) {
         stats.vocal += 2; stats.rap += 2; stats.visual += 2; stats.dance += 2;
@@ -80,7 +90,7 @@ const processedIdols = idols.map(idol => {
                idol.group.includes("MissA")) {
         stats.vocal -= 1; stats.rap -= 1; stats.visual -= 1; stats.dance -= 1;
         stats.fan -= 3; stats.viral -= 3;
-    } else if (idol.group.includes("StayC") || idol.group.includes("Baemon") ||
+    } else if (idol.group.includes("Stay-C") || idol.group.includes("Baemon") ||
                idol.group.includes("Nmixx") || idol.group.includes("Kep1er") ||
                idol.group.includes("Apink")) {
         stats.vocal -= 2; stats.rap -= 2; stats.visual -= 2; stats.dance -= 2;
@@ -89,8 +99,8 @@ const processedIdols = idols.map(idol => {
         stats.vocal -= 4; stats.rap -= 4; stats.visual -= 4; stats.dance -= 4;
         stats.fan -= 7; stats.viral -= 7;
     } else if (idol.group.includes("Meovv") || idol.group.includes("KOL") ||
-               idol.group.includes("Loona") || idol.group.includes("GirlsDay") ||
-               idol.group.includes("AOA") || idol.group.includes("OhMyGirl") ||
+               idol.group.includes("Loona") || idol.group.includes("Girls-Day") ||
+               idol.group.includes("AOA") || idol.group.includes("Oh-My-Girl") ||
                idol.group.includes("Exid")) {
         stats.vocal -= 4; stats.rap -= 4; stats.visual -= 4; stats.dance -= 4;
         stats.fan -= 8; stats.viral -= 8;
@@ -157,7 +167,7 @@ function preloadImages(urls) {
             const img = new Image();
             img.src = url;
             img.onload = resolve;
-            img.onerror = resolve; // Resolve luôn nếu lỗi, để không kẹt
+            img.onerror = resolve;
         })
     );
     return Promise.all(promises);
@@ -191,80 +201,140 @@ function showLoading() {
 function hideLoading() {
     loadingOverlay.classList.remove("show");
 }
-// Main card opening function
-async function openCard() {
-    resetCard();
-    applyEffect(card);
-    playMusic();
-    btn.disabled = true;
-    siu.disabled = true;
 
-    
-
-    showLoading();
-
-    const randomIdol = getRandomIdol();
-
-    const imagesToLoad = [randomIdol.img, randomIdol.flag, randomIdol.group];
-    await preloadImages(imagesToLoad);
-
+function skipReveal(randomIdol) {
+    clearAllTimeouts();
     hideLoading();
 
-    // Apply glow effect based on season
-    card.classList.remove("glow-gold", "glow-pink", "glow-white", "glow-blue", "glow-purple", "glow-black");
-    const glowMap = {
-        "ICONS": "glow-gold",
-        "IZ*ONE SPECIAL": "glow-pink",
-        "NEW GEN": "glow-white",
-        "UNSUNG IDOLS": "glow-blue",
-        "NATIONALLY": "glow-purple",
-        "TOP STARS": "glow-black"
-    };
-    const glowClass = glowMap[randomIdol.season];
-    if (glowClass) card.classList.add(glowClass);
+    country.src = randomIdol.flag;
+    country.classList.add("show-image");
 
-    // Reveal info with delay
-    setTimeout(() => {
-        country.src = randomIdol.flag;
-        country.classList.add("show-image");
-    }, 2000);
+    season.innerText = randomIdol.season;
+    season.classList.add("show");
 
-    setTimeout(() => {
-        season.innerText = randomIdol.season;
-        season.classList.add("show");
-    }, 4000);
+    role.innerText = randomIdol.role;
+    role.classList.add("show");
 
-    setTimeout(() => {
-        role.innerText = randomIdol.role;
-        role.classList.add("show");
+    vocal.innerText = `🎤 Vocal: ${randomIdol.stats.vocal}`;
+    rap.innerText = `🎧 Rap: ${randomIdol.stats.rap}`;
+    dance.innerText = `💃 Dance: ${randomIdol.stats.dance}`;
+    visual.innerText = `🌟 Visual: ${randomIdol.stats.visual}`;
+    fan.innerText = `👥 Fan: ${randomIdol.stats.fan}`;
+    viral.innerText = `🔥 Viral: ${randomIdol.stats.viral}`;
+    overall.innerText = randomIdol.stats.overall;
 
-        vocal.innerText = `🎤 Vocal: ${randomIdol.stats.vocal}`;
-        rap.innerText = `🎧 Rap: ${randomIdol.stats.rap}`;
-        dance.innerText = `💃 Dance: ${randomIdol.stats.dance}`;
-        visual.innerText = `🌟 Visual: ${randomIdol.stats.visual}`;
-        fan.innerText = `👥 Fan: ${randomIdol.stats.fan}`;
-        viral.innerText = `🔥 Viral: ${randomIdol.stats.viral}`;
-        overall.innerText = randomIdol.stats.overall;
+    [role, vocal, rap, dance, visual, fan, viral, overall].forEach(el =>
+        el.classList.add("show")
+    );
 
-        [role, vocal, rap, dance, visual, fan, viral, overall].forEach(el =>
-            el.classList.add("show")
-        );
-    }, 6000);
+    group.src = randomIdol.group;
+    group.classList.add("show-image");
 
-    setTimeout(() => {
-        group.src = randomIdol.group;
-        group.classList.add("show-image");
-    }, 8000);
+    name.innerText = randomIdol.name;
+    name.classList.add("show");
 
-    setTimeout(() => {
-        name.innerText = randomIdol.name;
-        name.classList.add("show");
-        avatar.src = randomIdol.img;
-        avatar.classList.add("show-image");
-        btn.disabled = false;
-        siu.disabled = false;
-        saveToHistory(randomIdol);
-    }, 10000);
+    avatar.src = randomIdol.img;
+    avatar.classList.add("show-image");
+
+    btn.disabled = false;
+    siu.disabled = false;
+    skipBtn.disabled = true;
+
+    saveToHistory(randomIdol);
+}
+// Main card opening function
+async function openCard() {
+    return new Promise(async (resolve) => {
+        resetCard();
+        applyEffect(card);
+        playMusic();
+        btn.disabled = true;
+        siu.disabled = true;
+        skip = false;
+        skipBtn.disabled = false;
+
+        const skipWatcher = setInterval(() => {
+            if (skip) {
+                clearInterval(skipWatcher);
+                clearAllTimeouts();
+                skipReveal(idol);
+                skip = false;
+                resolve();
+            }
+        }, 100);
+
+        showLoading();
+
+        const idol = getRandomIdol();
+        await preloadImages([idol.img, idol.flag, idol.group]);
+
+        if (skip) {
+            skipReveal(idol);
+            skip = false;
+            resolve();
+            return;
+        }
+
+        hideLoading();
+
+        card.classList.remove("glow-gold", "glow-pink", "glow-white", "glow-blue", "glow-purple", "glow-black");
+        const glowMap = {
+            "ICONS": "glow-gold",
+            "IZ*ONE SPECIAL": "glow-pink",
+            "NEW GEN": "glow-white",
+            "UNSUNG IDOLS": "glow-blue",
+            "NATIONALLY": "glow-purple",
+            "TOP STARS": "glow-black"
+        };
+        const glowClass = glowMap[idol.season];
+        if (glowClass) card.classList.add(glowClass);
+
+        timeouts.push(setTimeout(() => {
+            country.src = idol.flag;
+            country.classList.add("show-image");
+        }, 2000));
+
+        timeouts.push(setTimeout(() => {
+            season.innerText = idol.season;
+            season.classList.add("show");
+        }, 4000));
+
+        timeouts.push(setTimeout(() => {
+            role.innerText = idol.role;
+            role.classList.add("show");
+
+            vocal.innerText = `🎤 Vocal: ${idol.stats.vocal}`;
+            rap.innerText = `🎧 Rap: ${idol.stats.rap}`;
+            dance.innerText = `💃 Dance: ${idol.stats.dance}`;
+            visual.innerText = `🌟 Visual: ${idol.stats.visual}`;
+            fan.innerText = `👥 Fan: ${idol.stats.fan}`;
+            viral.innerText = `🔥 Viral: ${idol.stats.viral}`;
+            overall.innerText = idol.stats.overall;
+
+            [role, vocal, rap, dance, visual, fan, viral, overall].forEach(el =>
+                el.classList.add("show")
+            );
+        }, 6000));
+
+        timeouts.push(setTimeout(() => {
+            group.src = idol.group;
+            group.classList.add("show-image");
+        }, 8000));
+
+        timeouts.push(setTimeout(() => {
+            name.innerText = idol.name;
+            name.classList.add("show");
+            avatar.src = idol.img;
+            avatar.classList.add("show-image");
+
+            btn.disabled = false;
+            siu.disabled = false;
+            skipBtn.disabled = true;
+            saveToHistory(idol);
+            resolve();
+            clearInterval(skipWatcher);
+        }, 10000));
+    });
 }
 
 // Event listeners
@@ -321,6 +391,17 @@ function lockBodyScroll() {
 function unlockBodyScroll() {
     document.body.style.overflow = "";
 }
+
+skipBtn.addEventListener("click", () => {
+    skip = true;
+});
+
+document.addEventListener("keydown", (e) => {
+    if (e.code === "Space" && !skipBtn.disabled) {
+        e.preventDefault();
+        skip = true;
+    }
+});
 
 clearHistoryBtn.addEventListener("click", () => {
     confirmModal.classList.remove("hidden");
