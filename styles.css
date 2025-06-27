@@ -12,6 +12,7 @@ body {
     font-family: 'Poppins', sans-serif;
     background-attachment: fixed;
     text-align: center;
+    user-select: none;
 }
 h1 {
     margin-top: 25px;
@@ -231,9 +232,13 @@ h1 {
     color: white;
     backdrop-filter: blur(6px);
     position: relative;
+    transition: all 0.4s ease;
 }
-.history-card.glow-gold {
-    background: linear-gradient(135deg, #fffacd, #ffd700);
+.history-card:hover {
+    transform: scale(1.02);
+}
+.history-card.glow-yellow {
+    background: linear-gradient(135deg, #fffacd, #d4c04c);
     border: 2px solid gold;
     animation: glow 1.5s infinite alternate;
 }
@@ -242,24 +247,29 @@ h1 {
     border: 2px solid hotpink;
     animation: glow 1.5s infinite alternate;
 }
-.history-card.glow-white {
+.history-card.glow-orange {
     background: linear-gradient(135deg, #dd9776, #ffd2b4);
-    border: 2px solid tomato;
+    border: 2px solid orange;
     animation: glow 1.5s infinite alternate;
 }
 .history-card.glow-blue {
-    background: linear-gradient(135deg, #b0e0e6, #87cefa);
+    background: linear-gradient(135deg, #97dee7, #69c6ff);
     border: 2px solid deepskyblue;
     animation: glow 1.5s infinite alternate;
 }
-.history-card.glow-purple {
-    background: linear-gradient(135deg, #d8bfd8, #98fb98);
+.history-card.glow-green {
+    background: linear-gradient(135deg, #bad8a9, #74fc74);
     border: 2px solid greenyellow;
     animation: glow 1.5s infinite alternate;
 }
-.history-card.glow-black {
+.history-card.glow-purple {
     background: linear-gradient(135deg, #9364a1, #77478d);
     border: 2px solid purple;
+    animation: glow 1.5s infinite alternate;
+}
+.history-card.glow-red {
+    background: linear-gradient(135deg, #a05252, #8f3c3c);
+    border: 2px solid red;
     animation: glow 1.5s infinite alternate;
 }
 .history-card img.history-card-avatar {
@@ -395,9 +405,10 @@ h1 {
     100% { box-shadow: 0 0 5px rgba(255, 255, 255, 0.2); }
 }
 /* Màu sắc theo loại thẻ */
-.card.glow-gold { animation: glow 1.5s infinite alternate; border: 3px solid gold; }
+.card.glow-yellow { animation: glow 1.5s infinite alternate; border: 3px solid yellow; }
 .card.glow-pink { animation: glow 1.5s infinite alternate; border: 3px solid hotpink; }
-.card.glow-white { animation: glow 1.5s infinite alternate; border: 3px solid tomato; }
+.card.glow-orange { animation: glow 1.5s infinite alternate; border: 3px solid orange; }
 .card.glow-blue { animation: glow 1.5s infinite alternate; border: 3px solid deepskyblue; }
-.card.glow-purple { animation: glow 1.5s infinite alternate; border: 3px solid greenyellow; }
-.card.glow-black { animation: glow 1.5s infinite alternate; border: 3px solid purple; }
+.card.glow-green { animation: glow 1.5s infinite alternate; border: 3px solid greenyellow; }
+.card.glow-purple { animation: glow 1.5s infinite alternate; border: 3px solid purple; }
+.card.glow-red {animation: glow 1.5s infinite alternate; border: 3px solid red;}

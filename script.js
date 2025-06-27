@@ -44,84 +44,44 @@ const seasonRates = {
     "IZ*ONE SPECIAL": 0.01,
     "ICONS": 0.04,
     "TOP STARS": 0.05,
-    "NEW GEN": 0.3,
-    "UNSUNG IDOLS": 0.3,
-    "NATIONALLY": 0.3
+    "NEW GEN": 0.15,
+    "UNSUNG IDOLS": 0.25,
+    "NATIONALLY": 0.25,
+    "SURVIVAL": 0.25
 };
 
-// Initialize idol stats (run once)
+const seasonBoosts = {
+    "ICONS":      { vocal: 8, rap: 8, dance: 8, visual: 8, fan: 10, viral: 10 },
+    "TOP STARS":  { vocal: 7, rap: 7, dance: 7, visual: 7, fan: 9, viral: 9 },
+    "IZ*ONE SPECIAL": { vocal: 10, rap: 10, dance: 10, visual: 10, fan: 12, viral: 12 },
+    "NEW GEN":    { vocal: 6, rap: 6, dance: 6, visual: 6, fan: 8, viral: 8 },
+    "UNSUNG IDOLS": { vocal: 0, rap: 0, dance: 0, visual: 0, fan: 0, viral: 0 },
+    "NATIONALLY": { vocal: 1, rap: 1, dance: 1, visual: 1, fan: 3, viral: 3 },
+    "SURVIVAL": { vocal: 5, rap: 5, dance: 5, visual: 5, fan: 7, viral: 7 }
+};
+
+// Initialize idol stats
 const processedIdols = idols.map(idol => {
     const stats = { ...idol.stats };
-    
-    if (idol.group.includes("SNSD")) {
-        Object.keys(stats).forEach(key => key !== 'overall' && (stats[key] += 13));
-    } else if (idol.group.includes("Izone")) {
-        stats.vocal += 15; stats.rap += 15; stats.visual += 15; stats.dance += 15;
-        stats.fan += 20; stats.viral += 20;
-    } else if (idol.group.includes("Blackpink")) {
-        stats.vocal += 7; stats.rap += 7; stats.visual += 7; stats.dance += 7;
-        stats.fan += 9; stats.viral += 9;
-    } else if (idol.group.includes("Red-Velvet")) {
-        stats.vocal += 9; stats.rap += 9; stats.visual += 9; stats.dance += 9;
-        stats.fan += 11; stats.viral += 11;
-    } else if (idol.group.includes("Twice")) {
-        stats.vocal += 8; stats.rap += 8; stats.visual += 8; stats.dance += 8;
-        stats.fan += 10; stats.viral += 10;
-    } else if (idol.group.includes("4-Minute") || idol.group.includes("Gidle") || 
-               idol.group.includes("Ive") || idol.group.includes("Hearts2-Hearts") || 
-               idol.group.includes("Fromis9")) {
-        Object.keys(stats).forEach(key => key !== 'overall' && (stats[key] += 3));
-    } else if (idol.group.includes("BEG")) {
-        stats.vocal += 4; stats.rap += 4; stats.visual += 4; stats.dance += 4;
-        stats.fan += 2; stats.viral += 2;
-    } else if (idol.group.includes("Newjeans") || idol.group.includes("Aespa") ||
-               idol.group.includes("WG") || idol.group.includes("Fx")) {
-        stats.vocal += 5; stats.rap += 5; stats.visual += 5; stats.dance += 5;
-        stats.fan += 7; stats.viral += 7;
-    } else if (idol.group.includes("Tara") || idol.group.includes("2NE1")) {
-        stats.vocal += 8; stats.rap += 8; stats.visual += 8; stats.dance += 8;
-        stats.fan += 10; stats.viral += 10;
-    } else if (idol.group.includes("Le-Sserafim") || idol.group.includes("Gfriend") ||
-               idol.group.includes("Itzy") || idol.group.includes("Sistar") ||
-               idol.group.includes("Kara")) {
-        stats.vocal += 2; stats.rap += 2; stats.visual += 2; stats.dance += 2;
-        stats.fan -= 1; stats.viral -= 1;
-    } else if (idol.group.includes("Momoland") || idol.group.includes("IOI") ||
-               idol.group.includes("MissA")) {
-        stats.vocal -= 1; stats.rap -= 1; stats.visual -= 1; stats.dance -= 1;
-        stats.fan -= 3; stats.viral -= 3;
-    } else if (idol.group.includes("Stay-C") || idol.group.includes("Baemon") ||
-               idol.group.includes("Nmixx") || idol.group.includes("Kep1er") ||
-               idol.group.includes("Apink")) {
-        stats.vocal -= 2; stats.rap -= 2; stats.visual -= 2; stats.dance -= 2;
-        stats.fan -= 6; stats.viral -= 6;
-    } else if (idol.group.includes("ILLIT") || idol.group.includes("Everglow")) {
-        stats.vocal -= 4; stats.rap -= 4; stats.visual -= 4; stats.dance -= 4;
-        stats.fan -= 7; stats.viral -= 7;
-    } else if (idol.group.includes("Meovv") || idol.group.includes("KOL") ||
-               idol.group.includes("Loona") || idol.group.includes("Girls-Day") ||
-               idol.group.includes("AOA") || idol.group.includes("Oh-My-Girl") ||
-               idol.group.includes("Exid")) {
-        stats.vocal -= 4; stats.rap -= 4; stats.visual -= 4; stats.dance -= 4;
-        stats.fan -= 8; stats.viral -= 8;
-    } else if (idol.group.includes("Mamamoo")) {
-        stats.vocal += 2; stats.rap += 2; stats.visual += 2; stats.dance += 2;
-        stats.fan += 3; stats.viral += 3;
-    } else {
-        stats.vocal -= 4; stats.rap -= 4; stats.visual -= 4; stats.dance -= 4;
-        stats.fan -= 7; stats.viral -= 7;
+
+    // Boost follow season
+    const boost = seasonBoosts[idol.season];
+    if (boost) {
+        Object.keys(boost).forEach(key => {
+            stats[key] += boost[key];
+        });
     }
-    
-    // Cap stats at 100
+
+    // Cap stats 100
     Object.keys(stats).forEach(key => {
         if (key !== 'overall') stats[key] = Math.min(stats[key], 100);
     });
-    
-    // Calculate overall
+
+    // overall
     stats.overall = Math.round(
         (stats.vocal + stats.rap + stats.dance + stats.visual + (stats.fan * 2) + (stats.viral * 2)) / 8
     );
-    
+
     return { ...idol, stats };
 });
 
@@ -277,14 +237,15 @@ async function openCard() {
 
         hideLoading();
 
-        card.classList.remove("glow-gold", "glow-pink", "glow-white", "glow-blue", "glow-purple", "glow-black");
+        card.classList.remove("glow-yellow", "glow-pink", "glow-orange", "glow-blue", "glow-purple", "glow-green", "glow-red");
         const glowMap = {
-            "ICONS": "glow-gold",
+            "ICONS": "glow-yellow",
             "IZ*ONE SPECIAL": "glow-pink",
-            "NEW GEN": "glow-white",
+            "NEW GEN": "glow-orange",
             "UNSUNG IDOLS": "glow-blue",
-            "NATIONALLY": "glow-purple",
-            "TOP STARS": "glow-black"
+            "NATIONALLY": "glow-green",
+            "TOP STARS": "glow-purple",
+            "SURVIVAL": "glow-red"
         };
         const glowClass = glowMap[idol.season];
         if (glowClass) card.classList.add(glowClass);
@@ -361,12 +322,13 @@ function renderHistory() {
     const history = JSON.parse(localStorage.getItem("idolHistory") || "[]");
     historyGrid.innerHTML = "";
     const glowMap = {
-        "ICONS": "glow-gold",
+        "ICONS": "glow-yellow",
         "IZ*ONE SPECIAL": "glow-pink",
-        "NEW GEN": "glow-white",
+        "NEW GEN": "glow-orange",
         "UNSUNG IDOLS": "glow-blue",
-        "NATIONALLY": "glow-purple",
-        "TOP STARS": "glow-black"
+        "NATIONALLY": "glow-green",
+        "TOP STARS": "glow-purple",
+        "SURVIVAL": "glow-red"
     };
     history.forEach(entry => {
         const div = document.createElement("div");
