@@ -124,7 +124,7 @@ h1 {
     font-weight: 600;
 }
 .role {
-    height: calc(20px * 3);
+    height: calc(20px * 2);
     line-height: 20px;
 }
 .left p, .right p {
@@ -272,6 +272,36 @@ h1 {
     border: 2px solid red;
     animation: glow 1.5s infinite alternate;
 }
+.history-card.glow-neon-pink {
+    background: linear-gradient(135deg, #ffadce, #ff68a4);
+    border: 2px solid #FF66CC;
+    animation: glow 1.5s infinite alternate;
+}
+.history-card.glow-solo {
+    background: linear-gradient(135deg, #100a13, #09020f);
+    border: 2px solid #0e0213;
+    animation: glow 1.5s infinite alternate;
+}
+.history-card.glow-vocal {
+    background: linear-gradient(135deg, #156397, #56b5f8);
+    border: 2px solid #175883;
+    animation: glow 1.5s infinite alternate;
+}
+.history-card.glow-rap {
+    background: linear-gradient(135deg, #1ABC9C, #65ffbf);
+    border: 2px solid #1ABC9C;
+    animation: glow 1.5s infinite alternate;
+}
+.history-card.glow-dance {
+    background: linear-gradient(135deg, #502b0c, #70432e);
+    border: 2px solid #7a3812;
+    animation: glow 1.5s infinite alternate;
+}
+.history-card.glow-visual {
+    background: linear-gradient(135deg, #7a7a7a, #929292);
+    border: 2px solid #F8F9F9;
+    animation: glow 1.5s infinite alternate;
+}
 .history-card img.history-card-avatar {
     width: 100%;
     height: 250px;
@@ -412,3 +442,9 @@ h1 {
 .card.glow-green { animation: glow 1.5s infinite alternate; border: 3px solid greenyellow; }
 .card.glow-purple { animation: glow 1.5s infinite alternate; border: 3px solid purple; }
 .card.glow-red {animation: glow 1.5s infinite alternate; border: 3px solid red;}
+.card.glow-neon-pink {animation: glow 1.5s infinite alternate; border: 3px solid #FF66CC;}
+.card.glow-solo {animation: glow 1.5s infinite alternate; border: 3px solid #020003;}
+.card.glow-vocal {animation: glow 1.5s infinite alternate; border: 3px solid #175883;}
+.card.glow-rap {animation: glow 1.5s infinite alternate; border: 3px solid #1ABC9C;}
+.card.glow-dance {animation: glow 1.5s infinite alternate; border: 3px solid #7a3812;}
+.card.glow-visual {animation: glow 1.5s infinite alternate; border: 3px solid #F8F9F9;}

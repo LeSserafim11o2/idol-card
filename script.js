@@ -42,23 +42,71 @@ const vitas = new Audio("./Music/vitas_7th_element.mp3");
 // Season rates for rarity
 const seasonRates = {
     "IZ*ONE SPECIAL": 0.01,
+    "GROUP'S FACE": 0.01,
     "ICONS": 0.04,
-    "TOP STARS": 0.05,
-    "NEW GEN": 0.15,
-    "UNSUNG IDOLS": 0.25,
-    "NATIONALLY": 0.25,
-    "SURVIVAL": 0.25
+    "TOP STARS": 0.04,
+    "NEW GEN": 0.1,
+    "UNSUNG IDOLS": 0.1,
+    "NATIONALLY": 0.1,
+    "SURVIVAL": 0.1,
+    "LONE RANGER": 0.1,
+    "BEST VOICE": 0.1,
+    "DANCE MACHINE": 0.1,
+    "TOP VISUAL": 0.1,
+    "RAP COOL": 0.1,
 };
 
 const seasonBoosts = {
-    "ICONS":      { vocal: 8, rap: 8, dance: 8, visual: 8, fan: 10, viral: 10 },
-    "TOP STARS":  { vocal: 7, rap: 7, dance: 7, visual: 7, fan: 9, viral: 9 },
-    "IZ*ONE SPECIAL": { vocal: 10, rap: 10, dance: 10, visual: 10, fan: 12, viral: 12 },
-    "NEW GEN":    { vocal: 6, rap: 6, dance: 6, visual: 6, fan: 8, viral: 8 },
-    "UNSUNG IDOLS": { vocal: 0, rap: 0, dance: 0, visual: 0, fan: 0, viral: 0 },
-    "NATIONALLY": { vocal: 1, rap: 1, dance: 1, visual: 1, fan: 3, viral: 3 },
-    "SURVIVAL": { vocal: 5, rap: 5, dance: 5, visual: 5, fan: 7, viral: 7 }
+    "ICONS":      { vocal: 2, rap: 2, dance: 2, visual: 2, fan: 2, viral: 2 },
+    "TOP STARS":  { vocal: 1, rap: 1, dance: 1, visual: 1, fan: 1, viral: 1 },
+    "IZ*ONE SPECIAL": { vocal: 10, rap: 10, dance: 10, visual: 10, fan: 10, viral: 10 },
+    "NEW GEN":    { vocal: -2, rap: -2, dance: -2, visual: -2, fan: -2, viral: -2 },
+    "UNSUNG IDOLS": { vocal: -3, rap: -3, dance: -3, visual: -3, fan: -3, viral: -3 },
+    "NATIONALLY": { vocal: -3, rap: -3, dance: -3, visual: -3, fan: -3, viral: -3 },
+    "SURVIVAL": { vocal: 0, rap: 0, dance: 0, visual: 0, fan: 0, viral: 0 },
+    "GROUP'S FACE": { vocal: 0, rap: 0, dance: 0, visual: 0, fan: 0, viral: 0 },
+    "LONE RANGER": { vocal: -5, rap: -5, dance: -5, visual: -5, fan: -5, viral: -5 },
+    "BEST VOICE": { vocal: -5, rap: -5, dance: -5, visual: -5, fan: -5, viral: -5 },
+    "DANCE MACHINE": { vocal: -5, rap: -5, dance: -5, visual: -5, fan: -5, viral: -5 },
+    "TOP VISUAL": { vocal: -5, rap: -5, dance: -5, visual: -5, fan: -5, viral: -5 },
+    "RAP COOL": { vocal: -5, rap: -5, dance: -5, visual: -5, fan: -5, viral: -5 },
 };
+
+function calculateOverall(stats, role) {
+    const { vocal, rap, dance, visual, fan, viral } = stats;
+
+    // Map role to weights
+    const roleWeights = {
+        "Dance Centric":     { vocal: 1, dance: 3, rap: 1, visual: 1, fan: 2, viral: 2, divisor: 10 },
+        "Rap Centric":       { vocal: 1, dance: 1, rap: 3, visual: 1, fan: 2, viral: 2, divisor: 10 },
+        "Visual Centric":    { vocal: 1, dance: 1, rap: 1, visual: 3, fan: 2, viral: 2, divisor: 10 },
+        "Vocal Centric":     { vocal: 3, dance: 1, rap: 1, visual: 1, fan: 2, viral: 2, divisor: 10 },
+        "Energy Centric":    { vocal: 1, dance: 1, rap: 1, visual: 1, fan: 3, viral: 3, divisor: 10 },
+        "All Rounder":       { vocal: 1.5, dance: 1.5, rap: 1.5, visual: 1.5, fan: 2, viral: 2, divisor: 10 },
+        "Dance-Visual Ace":     { vocal: 0.5, dance: 2.5, rap: 0.5, visual: 2.5, fan: 2, viral: 2, divisor: 10 },
+        "Vocal-Rap Ace":        { vocal: 2.5, dance: 0.5, rap: 2.5, visual: 0.5, fan: 2, viral: 2, divisor: 10 },
+        "Rap-Visual Ace":       { vocal: 0.5, dance: 0.5, rap: 2.5, visual: 2.5, fan: 2, viral: 2, divisor: 10 },
+        "Rap-Dance Ace":        { vocal: 0.5, dance: 2.5, rap: 2.5, visual: 0.5, fan: 2, viral: 2, divisor: 10 },
+        "Vocal-Dance Ace":      { vocal: 2.5, dance: 2.5, rap: 0.5, visual: 0.5, fan: 2, viral: 2, divisor: 10 },
+        "Vocal-Visual Ace":     { vocal: 2.5, dance: 0.5, rap: 0.5, visual: 2.5, fan: 2, viral: 2, divisor: 10 },
+        "Vocal-Rap-Dance Ace":      { vocal: 2, rap: 2, dance: 2, visual: 1, fan: 2, viral: 2, divisor: 11 },
+        "Vocal-Rap-Visual Ace":     { vocal: 2, rap: 2, visual: 2, dance: 1, fan: 2, viral: 2, divisor: 11 },
+        "Vocal-Dance-Visual Ace":   { vocal: 2, dance: 2, visual: 2, rap: 1, fan: 2, viral: 2, divisor: 11 },
+        "Rap-Dance-Visual Ace":     { vocal: 1, rap: 2, dance: 2, visual: 2, fan: 2, viral: 2, divisor: 11 },
+    };
+
+    const weight = roleWeights[role] || { vocal: 1, rap: 1, dance: 1, visual: 1, fan: 2, viral: 2, divisor: 8 };
+
+    const total =
+        vocal * weight.vocal +
+        rap * weight.rap +
+        dance * weight.dance +
+        visual * weight.visual +
+        fan * weight.fan +
+        viral * weight.viral;
+
+    return Math.round(total / weight.divisor);
+}
 
 // Initialize idol stats
 const processedIdols = idols.map(idol => {
@@ -78,9 +126,7 @@ const processedIdols = idols.map(idol => {
     });
 
     // overall
-    stats.overall = Math.round(
-        (stats.vocal + stats.rap + stats.dance + stats.visual + (stats.fan * 2) + (stats.viral * 2)) / 8
-    );
+    stats.overall = calculateOverall(stats, idol.role);
 
     return { ...idol, stats };
 });
@@ -237,7 +283,10 @@ async function openCard() {
 
         hideLoading();
 
-        card.classList.remove("glow-yellow", "glow-pink", "glow-orange", "glow-blue", "glow-purple", "glow-green", "glow-red");
+        card.classList.remove(
+            "glow-yellow", "glow-pink", "glow-orange", "glow-blue", "glow-purple", "glow-green", "glow-red", 
+            "glow-neon-pink", "glow-solo", "glow-vocal", "glow-rap", "glow-dance", "glow-visual"
+        );
         const glowMap = {
             "ICONS": "glow-yellow",
             "IZ*ONE SPECIAL": "glow-pink",
@@ -245,7 +294,13 @@ async function openCard() {
             "UNSUNG IDOLS": "glow-blue",
             "NATIONALLY": "glow-green",
             "TOP STARS": "glow-purple",
-            "SURVIVAL": "glow-red"
+            "SURVIVAL": "glow-red",
+            "GROUP'S FACE": "glow-neon-pink",
+            "LONE RANGER": "glow-solo",
+            "BEST VOICE": "glow-vocal",
+            "DANCE MACHINE": "glow-dance",
+            "TOP VISUAL": "glow-visual",
+            "RAP COOL": "glow-rap",
         };
         const glowClass = glowMap[idol.season];
         if (glowClass) card.classList.add(glowClass);
@@ -313,7 +368,7 @@ function saveToHistory(idol) {
         country: idol.flag,
         timestamp: new Date().toLocaleString()
     });
-    history = history.slice(0, 50);
+    history = history.slice(0, 100);
     localStorage.setItem("idolHistory", JSON.stringify(history));
     renderHistory();
 }
@@ -328,7 +383,13 @@ function renderHistory() {
         "UNSUNG IDOLS": "glow-blue",
         "NATIONALLY": "glow-green",
         "TOP STARS": "glow-purple",
-        "SURVIVAL": "glow-red"
+        "SURVIVAL": "glow-red",
+        "GROUP'S FACE": "glow-neon-pink",
+        "LONE RANGER": "glow-solo",
+        "BEST VOICE": "glow-vocal",
+        "DANCE MACHINE": "glow-dance",
+        "TOP VISUAL": "glow-visual",
+        "RAP COOL": "glow-rap",
     };
     history.forEach(entry => {
         const div = document.createElement("div");
