@@ -57,8 +57,8 @@ const seasonRates = {
 };
 
 const seasonBoosts = {
-    "ICONS":      { vocal: 2, rap: 2, dance: 2, visual: 2, fan: 2, viral: 2 },
-    "TOP STARS":  { vocal: 1, rap: 1, dance: 1, visual: 1, fan: 1, viral: 1 },
+    "ICONS":      { vocal: 2, rap: 2, dance: 2, visual: 2, fan: 3, viral: 3 },
+    "TOP STARS":  { vocal: 1, rap: 1, dance: 1, visual: 1, fan: 2, viral: 2 },
     "IZ*ONE SPECIAL": { vocal: 10, rap: 10, dance: 10, visual: 10, fan: 10, viral: 10 },
     "NEW GEN":    { vocal: -2, rap: -2, dance: -2, visual: -2, fan: -2, viral: -2 },
     "UNSUNG IDOLS": { vocal: -3, rap: -3, dance: -3, visual: -3, fan: -3, viral: -3 },
