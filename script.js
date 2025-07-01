@@ -41,25 +41,16 @@ const vitas = new Audio("./Music/vitas_7th_element.mp3");
 
 // Season rates for rarity
 const seasonRates = {
-    "IZ*ONE SPECIAL": 0.01,
-    "GROUP'S FACE": 0.01,
-    "ICONS": 0.04,
-    "TOP STARS": 0.04,
-    "NEW GEN": 0.1,
-    "UNSUNG IDOLS": 0.1,
-    "NATIONALLY": 0.1,
-    "SURVIVAL": 0.1,
-    "LONE RANGER": 0.1,
-    "BEST VOICE": 0.1,
-    "DANCE MACHINE": 0.1,
-    "TOP VISUAL": 0.1,
-    "RAP COOL": 0.1,
+    "IZ*ONE SPECIAL": 0.05, "GROUP'S FACE": 0.05, "ICONS": 0.05, "TOP STARS": 0.05, "NEW GEN": 0.05, "UNSUNG IDOLS": 0.05,
+    "NATIONALLY": 0.05, "SURVIVAL": 0.05, "LONE RANGER": 0.05, "BEST VOICE": 0.05, "DANCE MACHINE": 0.05, "TOP VISUAL": 0.05,
+    "RAP COOL": 0.05, 'FOREIGN SOLDIER': 0.05, 'PRE DEBUT': 0.05, 'SPORT LIGHT': 0.05, 'VERSATILE': 0.05, 'RISE UP' :0.05,
+    'LAST DANCE': 0.05, 'CUP TROPHY': 0.05,
 };
 
 const seasonBoosts = {
-    "ICONS":      { vocal: 2, rap: 2, dance: 2, visual: 2, fan: 3, viral: 3 },
-    "TOP STARS":  { vocal: 1, rap: 1, dance: 1, visual: 1, fan: 2, viral: 2 },
-    "IZ*ONE SPECIAL": { vocal: 10, rap: 10, dance: 10, visual: 10, fan: 10, viral: 10 },
+    "ICONS":      { vocal: 3, rap: 3, dance: 3, visual: 3, fan: 4, viral: 4 },
+    "TOP STARS":  { vocal: 2, rap: 2, dance: 2, visual: 2, fan: 2, viral: 2 },
+    "IZ*ONE SPECIAL": { vocal: 15, rap: 15, dance: 15, visual: 15, fan: 15, viral: 15 },
     "NEW GEN":    { vocal: -2, rap: -2, dance: -2, visual: -2, fan: -2, viral: -2 },
     "UNSUNG IDOLS": { vocal: -3, rap: -3, dance: -3, visual: -3, fan: -3, viral: -3 },
     "NATIONALLY": { vocal: -3, rap: -3, dance: -3, visual: -3, fan: -3, viral: -3 },
@@ -70,6 +61,13 @@ const seasonBoosts = {
     "DANCE MACHINE": { vocal: -5, rap: -5, dance: -5, visual: -5, fan: -5, viral: -5 },
     "TOP VISUAL": { vocal: -5, rap: -5, dance: -5, visual: -5, fan: -5, viral: -5 },
     "RAP COOL": { vocal: -5, rap: -5, dance: -5, visual: -5, fan: -5, viral: -5 },
+    'FOREIGN SOLDIER': { vocal: 0, rap: 0, dance: 0, visual: 0, fan: 0, viral: 0 },
+    'PRE DEBUT': { vocal: 0, rap: 0, dance: 0, visual: 0, fan: 0, viral: 0 },
+    'SPORT LIGHT':{ vocal: 0, rap: 0, dance: 0, visual: 0, fan: 0, viral: 0 },
+    'VERSATILE':{ vocal: 0, rap: 0, dance: 0, visual: 0, fan: 0, viral: 0 },
+    'RISE UP':{ vocal: 0, rap: 0, dance: 0, visual: 0, fan: 0, viral: 0 },
+    'LAST DANCE':{ vocal: 0, rap: 0, dance: 0, visual: 0, fan: 0, viral: 0 }, 
+    'CUP TROPHY':{ vocal: -3, rap: -3, dance: -3, visual: -3, fan: -3, viral: -3 },
 };
 
 function calculateOverall(stats, role) {
@@ -284,23 +282,31 @@ async function openCard() {
         hideLoading();
 
         card.classList.remove(
-            "glow-yellow", "glow-pink", "glow-orange", "glow-blue", "glow-purple", "glow-green", "glow-red", 
-            "glow-neon-pink", "glow-solo", "glow-vocal", "glow-rap", "glow-dance", "glow-visual"
+            'glow-izone-special', 'glow-group-face', 'glow-icons', 'glow-top-stars', 'glow-new-gen', 'glow-unsung-idols', 'glow-nationally', 'glow-survival', 'glow-lone-ranger', 
+            'glow-best-voice', 'glow-dance-machine', 'glow-top-visual', 'glow-rap-cool', 'glow-foreign-soldier', 'glow-pre-debut', 'glow-sport-light', 'glow-versatile', 'glow-rise-up',
+            'glow-last-dance', 'glow-cup-trophy',
         );
         const glowMap = {
-            "ICONS": "glow-yellow",
-            "IZ*ONE SPECIAL": "glow-pink",
-            "NEW GEN": "glow-orange",
-            "UNSUNG IDOLS": "glow-blue",
-            "NATIONALLY": "glow-green",
-            "TOP STARS": "glow-purple",
-            "SURVIVAL": "glow-red",
-            "GROUP'S FACE": "glow-neon-pink",
-            "LONE RANGER": "glow-solo",
-            "BEST VOICE": "glow-vocal",
-            "DANCE MACHINE": "glow-dance",
-            "TOP VISUAL": "glow-visual",
-            "RAP COOL": "glow-rap",
+            "ICONS": 'glow-icons', 
+            "TOP STARS": 'glow-top-stars', 
+            "IZ*ONE SPECIAL": 'glow-izone-special', 
+            "NEW GEN": 'glow-new-gen', 
+            "UNSUNG IDOLS": 'glow-unsung-idols', 	
+            "NATIONALLY": 'glow-nationally', 
+            "SURVIVAL": 'glow-survival',
+            "GROUP'S FACE": 'glow-group-face', 
+            "LONE RANGER": 'glow-lone-ranger', 
+            "BEST VOICE": 'glow-best-voice', 
+            "DANCE MACHINE": 'glow-dance-machine', 
+            "TOP VISUAL": 'glow-top-visual', 
+            "RAP COOL": 'glow-rap-cool',
+            'FOREIGN SOLDIER': 'glow-foreign-soldier', 
+            'PRE DEBUT': 'glow-pre-debut', 
+            'SPORT LIGHT': 'glow-sport-light',
+            'VERSATILE': 'glow-versatile',
+            'RISE UP': 'glow-rise-up',
+            'LAST DANCE': 'glow-last-dance', 
+	        'CUP TROPHY': 'glow-cup-trophy',
         };
         const glowClass = glowMap[idol.season];
         if (glowClass) card.classList.add(glowClass);
@@ -377,19 +383,26 @@ function renderHistory() {
     const history = JSON.parse(localStorage.getItem("idolHistory") || "[]");
     historyGrid.innerHTML = "";
     const glowMap = {
-        "ICONS": "glow-yellow",
-        "IZ*ONE SPECIAL": "glow-pink",
-        "NEW GEN": "glow-orange",
-        "UNSUNG IDOLS": "glow-blue",
-        "NATIONALLY": "glow-green",
-        "TOP STARS": "glow-purple",
-        "SURVIVAL": "glow-red",
-        "GROUP'S FACE": "glow-neon-pink",
-        "LONE RANGER": "glow-solo",
-        "BEST VOICE": "glow-vocal",
-        "DANCE MACHINE": "glow-dance",
-        "TOP VISUAL": "glow-visual",
-        "RAP COOL": "glow-rap",
+        "ICONS": 'glow-icons', 
+        "TOP STARS": 'glow-top-stars', 
+        "IZ*ONE SPECIAL": 'glow-izone-special', 
+        "NEW GEN": 'glow-new-gen', 
+        "UNSUNG IDOLS": 'glow-unsung-idols', 	
+        "NATIONALLY": 'glow-nationally', 
+        "SURVIVAL": 'glow-survival',
+        "GROUP'S FACE": 'glow-group-face', 
+        "LONE RANGER": 'glow-lone-ranger', 
+        "BEST VOICE": 'glow-best-voice', 
+        "DANCE MACHINE": 'glow-dance-machine', 
+        "TOP VISUAL": 'glow-top-visual', 
+        "RAP COOL": 'glow-rap-cool',
+        'FOREIGN SOLDIER': 'glow-foreign-soldier', 
+        'PRE DEBUT': 'glow-pre-debut', 
+        'SPORT LIGHT': 'glow-sport-light',
+        'VERSATILE': 'glow-versatile',
+        'RISE UP': 'glow-rise-up',
+        'LAST DANCE': 'glow-last-dance', 
+	    'CUP TROPHY': 'glow-cup-trophy',
     };
     history.forEach(entry => {
         const div = document.createElement("div");

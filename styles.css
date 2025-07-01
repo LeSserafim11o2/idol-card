@@ -237,71 +237,38 @@ h1 {
 .history-card:hover {
     transform: scale(1.02);
 }
-.history-card.glow-yellow {
-    background: linear-gradient(135deg, #fffacd, #d4c04c);
-    border: 2px solid gold;
-    animation: glow 1.5s infinite alternate;
+.history-card.glow-izone-special {background: linear-gradient(135deg, #FFC0CB, #ff92a4); border: 2px solid #ff71c8; animation: glow 1.5s infinite alternate;}
+.history-card.glow-group-face {background: linear-gradient(135deg, #fff4f4, #d6c7c7); border: 2px solid #FFFFFF; animation: glow 1.5s infinite alternate;}
+.history-card.glow-icons {background: linear-gradient(135deg, #ffff52, #ffff2f); border: 2px solid #FFFF00; animation: glow 1.5s infinite alternate;}
+.history-card.glow-top-stars {background: linear-gradient(135deg, #b400b4, #a700a7); border: 2px solid #800080; animation: glow 1.5s infinite alternate;}
+.history-card.glow-new-gen {background: linear-gradient(135deg, #ffb01e, #ffab0f); border: 2px solid #FFA500; animation: glow 1.5s infinite alternate;}
+.history-card.glow-unsung-idols {background: linear-gradient(135deg, #5050ff, #4444fc); border: 2px solid #0000FF; animation: glow 1.5s infinite alternate;}
+.history-card.glow-nationally {background: linear-gradient(135deg, #009e00, #009e00); border: 2px solid #008000; animation: glow 1.5s infinite alternate;}
+.history-card.glow-survival {background: linear-gradient(135deg, #ff6d6d, #ff3535); border: 2px solid #FF0000; animation: glow 1.5s infinite alternate;}
+.history-card.glow-lone-ranger {background: linear-gradient(135deg, #242121, #0f0e0e); border: 2px solid #000000; animation: glow 1.5s infinite alternate;}
+.history-card.glow-best-voice {background: linear-gradient(135deg, #f5f5cf, #f8f8c6); border: 2px solid #F5F5DC; animation: glow 1.5s infinite alternate;}
+.history-card.glow-dance-machine {background: linear-gradient(135deg, #7c3d11, #64300b); border: 2px solid #8B4513; animation: glow 1.5s infinite alternate;}
+.history-card.glow-top-visual {background: linear-gradient(135deg, #55ffee, #40E0D0); border: 2px solid #40E0D0; animation: glow 1.5s infinite alternate;}
+.history-card.glow-rap-cool {background: linear-gradient(135deg, #cdff37, #c6ff1b); border: 2px solid #BFFF00; animation: glow 1.5s infinite alternate;}
+.history-card.glow-foreign-soldier {background: linear-gradient(135deg, #d1cf9e, #cecb91); border: 2px solid #FFFDD0; animation: glow 1.5s infinite alternate;}
+.history-card.glow-pre-debut {background: linear-gradient(135deg, #acabab, #777777); border: 2px solid #808080; animation: glow 1.5s infinite alternate;}
+.history-card.glow-sport-light {background: linear-gradient(135deg, #464646, #464646); border: 2px solid #4d4d4d; animation: glow 1.5s infinite alternate;}
+.history-card.glow-versatile {background: linear-gradient(135deg, #87CEEB, #6fc4e6); border: 2px solid #87CEEB; animation: glow 1.5s infinite alternate;}
+.history-card.glow-rise-up {background: linear-gradient(135deg, #FF6EC7, #ff5ac0); border: 2px solid #FF6EC7; animation: glow 1.5s infinite alternate;}
+.history-card.glow-last-dance {background: linear-gradient(135deg, #CC5500, #aa4700); border: 2px solid #CC5500; animation: glow 1.5s infinite alternate;}
+.history-card.glow-cup-trophy {background: linear-gradient(135deg, #800020, #630019); border: 2px solid #800020; animation: glow 1.5s infinite alternate;}
+
+.history-card.card.glow-group-face h3, .history-card.card.glow-group-face p, 
+.history-card.glow-best-voice h3, .history-card.glow-best-voice p,
+.history-card.glow-foreign-soldier h3, .history-card.glow-foreign-soldier p,
+.history-card.glow-rap-cool h3, .history-card.glow-rap-cool p,
+.history-card.glow-icons h3, .history-card.glow-icons p,
+.history-card.glow-group-face h3, .history-card.glow-group-face p,
+.history-card.glow-top-visual h3, .history-card.glow-top-visual p
+{
+    color: black;
 }
-.history-card.glow-pink {
-    background: linear-gradient(135deg, #ffb6c1, #ffe4e1);
-    border: 2px solid hotpink;
-    animation: glow 1.5s infinite alternate;
-}
-.history-card.glow-orange {
-    background: linear-gradient(135deg, #dd9776, #ffd2b4);
-    border: 2px solid orange;
-    animation: glow 1.5s infinite alternate;
-}
-.history-card.glow-blue {
-    background: linear-gradient(135deg, #97dee7, #69c6ff);
-    border: 2px solid deepskyblue;
-    animation: glow 1.5s infinite alternate;
-}
-.history-card.glow-green {
-    background: linear-gradient(135deg, #bad8a9, #74fc74);
-    border: 2px solid greenyellow;
-    animation: glow 1.5s infinite alternate;
-}
-.history-card.glow-purple {
-    background: linear-gradient(135deg, #9364a1, #77478d);
-    border: 2px solid purple;
-    animation: glow 1.5s infinite alternate;
-}
-.history-card.glow-red {
-    background: linear-gradient(135deg, #a05252, #8f3c3c);
-    border: 2px solid red;
-    animation: glow 1.5s infinite alternate;
-}
-.history-card.glow-neon-pink {
-    background: linear-gradient(135deg, #ffadce, #ff68a4);
-    border: 2px solid #FF66CC;
-    animation: glow 1.5s infinite alternate;
-}
-.history-card.glow-solo {
-    background: linear-gradient(135deg, #100a13, #09020f);
-    border: 2px solid #0e0213;
-    animation: glow 1.5s infinite alternate;
-}
-.history-card.glow-vocal {
-    background: linear-gradient(135deg, #156397, #56b5f8);
-    border: 2px solid #175883;
-    animation: glow 1.5s infinite alternate;
-}
-.history-card.glow-rap {
-    background: linear-gradient(135deg, #1ABC9C, #65ffbf);
-    border: 2px solid #1ABC9C;
-    animation: glow 1.5s infinite alternate;
-}
-.history-card.glow-dance {
-    background: linear-gradient(135deg, #502b0c, #70432e);
-    border: 2px solid #7a3812;
-    animation: glow 1.5s infinite alternate;
-}
-.history-card.glow-visual {
-    background: linear-gradient(135deg, #7a7a7a, #929292);
-    border: 2px solid #F8F9F9;
-    animation: glow 1.5s infinite alternate;
-}
+
 .history-card img.history-card-avatar {
     width: 100%;
     height: 250px;
@@ -435,16 +402,23 @@ h1 {
     100% { box-shadow: 0 0 5px rgba(255, 255, 255, 0.2); }
 }
 /* Màu sắc theo loại thẻ */
-.card.glow-yellow { animation: glow 1.5s infinite alternate; border: 3px solid yellow; }
-.card.glow-pink { animation: glow 1.5s infinite alternate; border: 3px solid hotpink; }
-.card.glow-orange { animation: glow 1.5s infinite alternate; border: 3px solid orange; }
-.card.glow-blue { animation: glow 1.5s infinite alternate; border: 3px solid deepskyblue; }
-.card.glow-green { animation: glow 1.5s infinite alternate; border: 3px solid greenyellow; }
-.card.glow-purple { animation: glow 1.5s infinite alternate; border: 3px solid purple; }
-.card.glow-red {animation: glow 1.5s infinite alternate; border: 3px solid red;}
-.card.glow-neon-pink {animation: glow 1.5s infinite alternate; border: 3px solid #FF66CC;}
-.card.glow-solo {animation: glow 1.5s infinite alternate; border: 3px solid #020003;}
-.card.glow-vocal {animation: glow 1.5s infinite alternate; border: 3px solid #175883;}
-.card.glow-rap {animation: glow 1.5s infinite alternate; border: 3px solid #1ABC9C;}
-.card.glow-dance {animation: glow 1.5s infinite alternate; border: 3px solid #7a3812;}
-.card.glow-visual {animation: glow 1.5s infinite alternate; border: 3px solid #F8F9F9;}
+.card.glow-izone-special {animation: glow 1.5s infinite alternate; border: 3px solid #ff71c8;}
+.card.glow-group-face {animation: glow 1.5s infinite alternate; border: 3px solid #FFFFFF;}
+.card.glow-icons {animation: glow 1.5s infinite alternate; border: 3px solid #FFFF00;}
+.card.glow-top-stars {animation: glow 1.5s infinite alternate; border: 3px solid #800080;}
+.card.glow-new-gen {animation: glow 1.5s infinite alternate; border: 3px solid #FFA500;}
+.card.glow-unsung-idols {animation: glow 1.5s infinite alternate; border: 3px solid #0000FF;}
+.card.glow-nationally {animation: glow 1.5s infinite alternate; border: 3px solid #008000;}
+.card.glow-survival {animation: glow 1.5s infinite alternate; border: 3px solid #FF0000;}
+.card.glow-lone-ranger {animation: glow 1.5s infinite alternate; border: 3px solid #000000;}
+.card.glow-best-voice {animation: glow 1.5s infinite alternate; border: 3px solid #F5F5DC;}
+.card.glow-dance-machine {animation: glow 1.5s infinite alternate; border: 3px solid #8B4513;}
+.card.glow-top-visual {animation: glow 1.5s infinite alternate; border: 3px solid #40E0D0;}
+.card.glow-rap-cool {animation: glow 1.5s infinite alternate; border: 3px solid #BFFF00;}
+.card.glow-foreign-soldier {animation: glow 1.5s infinite alternate; border: 3px solid #FFFDD0;}
+.card.glow-pre-debut {animation: glow 1.5s infinite alternate; border: 3px solid #808080;}
+.card.glow-sport-light {animation: glow 1.5s infinite alternate; border: 3px solid #C0C0C0;}
+.card.glow-versatile {animation: glow 1.5s infinite alternate; border: 3px solid #87CEEB;}
+.card.glow-rise-up {animation: glow 1.5s infinite alternate; border: 3px solid #FF6EC7;}
+.card.glow-last-dance {animation: glow 1.5s infinite alternate; border: 3px solid #CC5500;}
+.card.glow-cup-trophy {animation: glow 1.5s infinite alternate; border: 3px solid #800020;}
