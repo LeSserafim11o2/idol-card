@@ -6,6 +6,9 @@
 ::-webkit-scrollbar {
     display: none;
 }
+.hidden {
+    display: none;
+}
 body {
     background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
     color: white;
@@ -154,6 +157,19 @@ h1 {
 }
 .show {
     opacity: 1 !important;
+}
+.unlock-msg {
+    font-size: 16px;
+    color: hotpink;
+    background-color: rgba(0, 0, 0, 0.6);
+    width: max-content;
+    margin: 12px auto 0;
+    padding: 12px 15px;
+}
+.izone-collection-container {
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 12px 15px;
+    margin-top: 15px;
 }
 @keyframes fadeScale {
     0% {

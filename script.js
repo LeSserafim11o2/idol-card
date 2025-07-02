@@ -193,6 +193,26 @@ packSelect.addEventListener("change", () => {
     }
 });
 
+// Check iz*one season function
+function checkSeasonUnlock() {
+    const izoneCollection = JSON.parse(localStorage.getItem("izoneCollection") || "[]");
+
+    const seasonSelect = document.getElementById("season-pack");
+    const unlockMsg = document.getElementById("unlock-msg");
+
+    const requiredCount = 12;
+    const collectedCount = izoneCollection.length;
+
+    if (collectedCount >= requiredCount) {
+        seasonSelect.classList.remove("hidden");
+        unlockMsg.innerText = "You have collected all Iz*one's members and unlocked choose season mode!";
+    } else {
+        const remain = requiredCount - collectedCount;
+        seasonSelect.classList.add("hidden");
+        unlockMsg.innerText = `Need more ${remain} IZ*ONE's members to open choose season mode!`;
+    }
+}
+
 // Apply card effects
 function applyEffect(card) {
     setTimeout(() => card.classList.add("show-image"), 50);
@@ -407,6 +427,7 @@ async function openCard() {
 btn.addEventListener("click", openCard);
 siu.addEventListener("click", openCongratulation);
 seasonFilter.addEventListener("change", renderHistory);
+
 function updateSeasonFilterOptions() {
     const history = JSON.parse(localStorage.getItem("idolHistory") || "[]");
     const uniqueSeasons = [...new Set(history.map(entry => entry.season))];
@@ -435,7 +456,26 @@ function saveToHistory(idol) {
     history = history.slice(0, 100);
     localStorage.setItem("idolHistory", JSON.stringify(history));
     renderHistory();
+
+    // Save IZ*ONE SPECIAL
+    if (idol.season === "IZ*ONE SPECIAL") {
+        let izoneCollection = JSON.parse(localStorage.getItem("izoneCollection") || "[]");
+        const alreadyExists = izoneCollection.some(card => card.name === idol.name);
+        if (!alreadyExists) {
+            izoneCollection.push({
+                name: idol.name,
+                season: idol.season,
+                group: idol.group,
+                avatar: idol.img,
+                overall: idol.stats.overall,
+                country: idol.flag,
+                timestamp: new Date().toLocaleString()
+            });
+            localStorage.setItem("izoneCollection", JSON.stringify(izoneCollection));
+        }
+    }
     updateSeasonFilterOptions();
+    checkSeasonUnlock();
 }
 
 function renderHistory() {
@@ -493,6 +533,26 @@ function renderHistory() {
     });
 }
 
+function renderIZONECollection() {
+    const izone = JSON.parse(localStorage.getItem("izoneCollection") || "[]");
+    const grid = document.getElementById("izone-grid");
+    grid.innerHTML = "";
+
+    izone.forEach(entry => {
+        const div = document.createElement("div");
+        div.className = `history-card glow-izone-special`;
+        div.innerHTML = `
+            <img src="${entry.avatar}" alt="${entry.name}" class="history-card-avatar">
+            <h3>${entry.name}</h3>
+            <p>${entry.season}</p>
+            <div class="history-card-group-wrapper"><img src="${entry.group}" class="history-card-group"></div>
+            <h2>${entry.overall}</h2>
+            <img src="${entry.country}" alt="${entry.country}" class="history-card-country">
+        `;
+        grid.appendChild(div);
+    });
+}
+
 renderHistory();
 
 function lockBodyScroll() {
@@ -540,4 +600,6 @@ confirmModal.addEventListener("click", (e) => {
 window.onload = () => {
     updateSeasonFilterOptions();
     renderHistory();
+    renderIZONECollection();
+    checkSeasonUnlock();
 };
