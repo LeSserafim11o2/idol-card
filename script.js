@@ -41,10 +41,11 @@ const vitas = new Audio("./Music/vitas_7th_element.mp3");
 
 // Season rates for rarity
 const seasonRates = {
-    "IZ*ONE SPECIAL": 0.05, "GROUP'S FACE": 0.05, "ICONS": 0.05, "TOP STARS": 0.05, "NEW GEN": 0.05, "UNSUNG IDOLS": 0.05,
-    "NATIONALLY": 0.05, "SURVIVAL": 0.05, "LONE RANGER": 0.05, "BEST VOICE": 0.05, "DANCE MACHINE": 0.05, "TOP VISUAL": 0.05,
-    "RAP COOL": 0.05, 'FOREIGN SOLDIER': 0.05, 'PRE DEBUT': 0.05, 'SPORT LIGHT': 0.05, 'VERSATILE': 0.05, 'RISE UP' :0.05,
-    'LAST DANCE': 0.05, 'CUP TROPHY': 0.05,
+    "IZ*ONE SPECIAL": 0.01, "GROUP'S FACE": 0.02, "ICONS": 0.02, "TOP STARS": 0.02, "NEW GEN": 0.03, "UNSUNG IDOLS": 0.036,
+    "NATIONALLY": 0.036, "SURVIVAL": 0.036, "LONE RANGER": 0.036, "BEST VOICE": 0.036, "DANCE MACHINE": 0.036, "TOP VISUAL": 0.036,
+    "RAP COOL": 0.036, 'FOREIGN SOLDIER': 0.036, 'PRE DEBUT': 0.036, 'SPORT LIGHT': 0.036, 'VERSATILE': 0.036, 'RISE UP' :0.036,
+    'LAST DANCE': 0.036, 'CUP TROPHY': 0.036, 'HARD WORKER': 0.036, 'LOYAL BOND': 0.036, 'ULTIMATE SKILLS': 0.036, 'NATIONAL SONG': 0.036, 
+    'TOP CRUSH': 0.036, 'DINOSAUR ROOKIE': 0.036, 'RETURNS': 0.036, 'ANTI HERO': 0.036, 'ONE HIT': 0.036, 'MULTIVERSE': 0.036
 };
 
 const seasonBoosts = {
@@ -68,6 +69,16 @@ const seasonBoosts = {
     'RISE UP':{ vocal: 0, rap: 0, dance: 0, visual: 0, fan: 0, viral: 0 },
     'LAST DANCE':{ vocal: 0, rap: 0, dance: 0, visual: 0, fan: 0, viral: 0 }, 
     'CUP TROPHY':{ vocal: -3, rap: -3, dance: -3, visual: -3, fan: -3, viral: -3 },
+    'HARD WORKER':{ vocal: 0, rap: 0, dance: 0, visual: 0, fan: 0, viral: 0 }, 
+    'LOYAL BOND':{ vocal: 0, rap: 0, dance: 0, visual: 0, fan: 0, viral: 0 }, 
+    'ULTIMATE SKILLS':{ vocal: 0, rap: 0, dance: 0, visual: 0, fan: 0, viral: 0 }, 
+    'NATIONAL SONG':{ vocal: 0, rap: 0, dance: 0, visual: 0, fan: 0, viral: 0 }, 
+    'TOP CRUSH':{ vocal: 0, rap: 0, dance: 0, visual: 0, fan: 0, viral: 0 }, 
+    'DINOSAUR ROOKIE':{ vocal: 0, rap: 0, dance: 0, visual: 0, fan: 0, viral: 0 }, 
+    'RETURNS':{ vocal: 0, rap: 0, dance: 0, visual: 0, fan: 0, viral: 0 }, 
+    'ANTI HERO':{ vocal: 0, rap: 0, dance: 0, visual: 0, fan: 0, viral: 0 }, 
+    'ONE HIT':{ vocal: 0, rap: 0, dance: 0, visual: 0, fan: 0, viral: 0 }, 
+    'MULTIVERSE':{ vocal: 0, rap: 0, dance: 0, visual: 0, fan: 0, viral: 0 }
 };
 
 function calculateOverall(stats, role) {
@@ -284,7 +295,8 @@ async function openCard() {
         card.classList.remove(
             'glow-izone-special', 'glow-group-face', 'glow-icons', 'glow-top-stars', 'glow-new-gen', 'glow-unsung-idols', 'glow-nationally', 'glow-survival', 'glow-lone-ranger', 
             'glow-best-voice', 'glow-dance-machine', 'glow-top-visual', 'glow-rap-cool', 'glow-foreign-soldier', 'glow-pre-debut', 'glow-sport-light', 'glow-versatile', 'glow-rise-up',
-            'glow-last-dance', 'glow-cup-trophy',
+            'glow-last-dance', 'glow-cup-trophy', 'glow-hard-worker', 'glow-loyal-bond', 'glow-ultimate-skills', 'glow-national-song', 'glow-top-crush', 'glow-dinosaur-rookie', 
+            'glow-returns', 'glow-anti-hero', 'glow-one-hit', 'glow-multiverse'
         );
         const glowMap = {
             "ICONS": 'glow-icons', 
@@ -307,6 +319,16 @@ async function openCard() {
             'RISE UP': 'glow-rise-up',
             'LAST DANCE': 'glow-last-dance', 
 	        'CUP TROPHY': 'glow-cup-trophy',
+            'HARD WORKER': 'glow-hard-worker',
+            'LOYAL BOND': 'glow-loyal-bond',
+            'ULTIMATE SKILLS': 'glow-ultimate-skills',
+            'NATIONAL SONG': 'glow-national-song',
+            'TOP CRUSH': 'glow-top-crush',
+	        'DINOSAUR ROOKIE': 'glow-dinosaur-rookie',
+            'RETURNS': 'glow-returns',
+            'ANTI HERO': 'glow-anti-hero',
+            'ONE HIT': 'glow-one-hit',
+            'MULTIVERSE': 'glow-multiverse'
         };
         const glowClass = glowMap[idol.season];
         if (glowClass) card.classList.add(glowClass);
@@ -403,6 +425,16 @@ function renderHistory() {
         'RISE UP': 'glow-rise-up',
         'LAST DANCE': 'glow-last-dance', 
 	    'CUP TROPHY': 'glow-cup-trophy',
+        'HARD WORKER': 'glow-hard-worker',
+        'LOYAL BOND': 'glow-loyal-bond',
+        'ULTIMATE SKILLS': 'glow-ultimate-skills',
+        'NATIONAL SONG': 'glow-national-song',
+        'TOP CRUSH': 'glow-top-crush',
+        'DINOSAUR ROOKIE': 'glow-dinosaur-rookie',
+        'RETURNS': 'glow-returns',
+        'ANTI HERO': 'glow-anti-hero',
+        'ONE HIT': 'glow-one-hit',
+        'MULTIVERSE': 'glow-multiverse'
     };
     history.forEach(entry => {
         const div = document.createElement("div");

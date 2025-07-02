@@ -257,6 +257,16 @@ h1 {
 .history-card.glow-rise-up {background: linear-gradient(135deg, #FF6EC7, #ff5ac0); border: 2px solid #FF6EC7; animation: glow 1.5s infinite alternate;}
 .history-card.glow-last-dance {background: linear-gradient(135deg, #CC5500, #aa4700); border: 2px solid #CC5500; animation: glow 1.5s infinite alternate;}
 .history-card.glow-cup-trophy {background: linear-gradient(135deg, #800020, #630019); border: 2px solid #800020; animation: glow 1.5s infinite alternate;}
+.history-card.glow-hard-worker {background: linear-gradient(135deg, #FFD1DC, #ffc2d0); border: 2px solid #FFD1DC; animation: glow 1.5s infinite alternate;}
+.history-card.glow-loyal-bond {background: linear-gradient(135deg, #D8B7DD, #d5a4dd); border: 2px solid #D8B7DD; animation: glow 1.5s infinite alternate;}
+.history-card.glow-ultimate-skills {background: linear-gradient(135deg, #AEEEEE, #9cf0f0); border: 2px solid #AEEEEE; animation: glow 1.5s infinite alternate;}
+.history-card.glow-national-song {background: linear-gradient(135deg, #FFFACD, #fff7b2); border: 2px solid #FFFACD; animation: glow 1.5s infinite alternate;}
+.history-card.glow-top-crush {background: linear-gradient(135deg, #98FF98, #7dff7d); border: 2px solid #98FF98; animation: glow 1.5s infinite alternate;}
+.history-card.glow-dinosaur-rookie {background: linear-gradient(135deg, #FFDAB9, #ffca9b); border: 2px solid #FFDAB9; animation: glow 1.5s infinite alternate;}
+.history-card.glow-returns {background: linear-gradient(135deg, #E6E6FA, #cacafd); border: 2px solid #E6E6FA; animation: glow 1.5s infinite alternate;}
+.history-card.glow-anti-hero {background: linear-gradient(135deg, #708090, #667c92); border: 2px solid #708090; animation: glow 1.5s infinite alternate;}
+.history-card.glow-one-hit {background: linear-gradient(135deg, #D2B48C, #d3ad7c); border: 2px solid #D2B48C; animation: glow 1.5s infinite alternate;}
+.history-card.glow-multiverse {background: linear-gradient(135deg, #C8A2C8, #c996c9); border: 2px solid #C8A2C8; animation: glow 1.5s infinite alternate;}
 
 .history-card.card.glow-group-face h3, .history-card.card.glow-group-face p, 
 .history-card.glow-best-voice h3, .history-card.glow-best-voice p,
@@ -264,7 +274,16 @@ h1 {
 .history-card.glow-rap-cool h3, .history-card.glow-rap-cool p,
 .history-card.glow-icons h3, .history-card.glow-icons p,
 .history-card.glow-group-face h3, .history-card.glow-group-face p,
-.history-card.glow-top-visual h3, .history-card.glow-top-visual p
+.history-card.glow-top-visual h3, .history-card.glow-top-visual p,
+.history-card.glow-hard-worker h3, .history-card.glow-hard-worker p,
+.history-card.glow-loyal-bond h3, .history-card.glow-loyal-bond p,
+.history-card.glow-ultimate-skills h3, .history-card.glow-ultimate-skills p,
+.history-card.glow-national-song h3, .history-card.glow-national-song p,
+.history-card.glow-top-crush h3, .history-card.glow-top-crush p,
+.history-card.glow-dinosaur-rookie h3, .history-card.glow-dinosaur-rookie p,
+.history-card.glow-returns h3, .history-card.glow-returns p,
+.history-card.glow-one-hit h3, .history-card.glow-one-hit p,
+.history-card.glow-multiverse h3, .history-card.glow-multiverse p
 {
     color: black;
 }
@@ -422,3 +441,13 @@ h1 {
 .card.glow-rise-up {animation: glow 1.5s infinite alternate; border: 3px solid #FF6EC7;}
 .card.glow-last-dance {animation: glow 1.5s infinite alternate; border: 3px solid #CC5500;}
 .card.glow-cup-trophy {animation: glow 1.5s infinite alternate; border: 3px solid #800020;}
+.card.glow-hard-worker {animation: glow 1.5s infinite alternate; border: 3px solid #FFD1DC;}
+.card.glow-loyal-bond {animation: glow 1.5s infinite alternate; border: 3px solid #D8B7DD;}
+.card.glow-ultimate-skills {animation: glow 1.5s infinite alternate; border: 3px solid #AEEEEE;}
+.card.glow-national-song {animation: glow 1.5s infinite alternate; border: 3px solid #FFFACD;}
+.card.glow-top-crush {animation: glow 1.5s infinite alternate; border: 3px solid #98FF98;}
+.card.glow-dinosaur-rookie {animation: glow 1.5s infinite alternate; border: 3px solid #FFDAB9;}
+.card.glow-returns {animation: glow 1.5s infinite alternate; border: 3px solid #E6E6FA;}
+.card.glow-anti-hero {animation: glow 1.5s infinite alternate; border: 3px solid #708090;}
+.card.glow-one-hit {animation: glow 1.5s infinite alternate; border: 3px solid #D2B48C;}
+.card.glow-multiverse {animation: glow 1.5s infinite alternate; border: 3px solid #C8A2C8;}
