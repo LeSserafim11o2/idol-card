@@ -24,6 +24,8 @@ const confirmModal = document.getElementById("confirm-modal");
 const confirmDelete = document.getElementById("confirm-delete");
 const cancelDelete = document.getElementById("cancel-delete");
 const seasonFilter = document.getElementById("season-filter");
+const packLabel = document.getElementById("pack-label");
+const packSelect = document.getElementById("season-pack");
 
 
 let skip = false;
@@ -161,16 +163,35 @@ function stopAllAudio() {
 
 // Get random idol based on season rarity
 function getRandomIdol() {
-    const weights = processedIdols.map(idol => seasonRates[idol.season] || 0.01);
-    const totalWeight = weights.reduce((sum, weight) => sum + weight, 0);
-    
-    let random = Math.random() * totalWeight;
-    for (let i = 0; i < processedIdols.length; i++) {
-        random -= weights[i];
-        if (random <= 0) return processedIdols[i];
+    const selectedSeason = document.getElementById("season-pack")?.value || "all";
+    let idolPool;
+    if (selectedSeason === "all") {
+        idolPool = processedIdols;
+    } else {
+        idolPool = processedIdols.filter(idol => idol.season === selectedSeason);
     }
-    return processedIdols[0]; // fallback
+    if (idolPool.length === 0) return null;
+
+    const weights = idolPool.map(idol => seasonRates[idol.season] || 0.01);
+    const totalWeight = weights.reduce((sum, weight) => sum + weight, 0);
+
+    let random = Math.random() * totalWeight;
+    for (let i = 0; i < idolPool.length; i++) {
+        random -= weights[i];
+        if (random <= 0) return idolPool[i];
+    }
+    return idolPool[0];
 }
+
+// Update pack name when change the season
+packSelect.addEventListener("change", () => {
+    const season = packSelect.value;
+    if (season === "all") {
+        packLabel.innerText = "Open All Season Pack";
+    } else {
+        packLabel.innerText = `Open Season Pack ${season}`;
+    }
+});
 
 // Apply card effects
 function applyEffect(card) {
