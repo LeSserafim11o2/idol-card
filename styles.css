@@ -217,6 +217,29 @@ h1 {
 .history-container button {
     margin: 12px 0 10px;
 }
+.history-container .season-filter-container {
+    background-color: rgba(0, 0, 0, 0.6);
+    width: max-content;
+    margin: 10px auto;
+    padding: 12px 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+}
+.season-filter-container label {
+    font-size: 20px;
+}
+.season-filter-container select {
+    background-color: #222;
+    color: white;
+    font-size: 15px;
+    padding: 5px 8px;
+    outline: none;
+}
+.season-filter-container option {
+    padding: 10px 12px;
+}
 .history-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));

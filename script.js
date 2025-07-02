@@ -1,5 +1,4 @@
 import idols from "./idols.js";
-
 // DOM elements
 const card = document.getElementById("idol-card");
 const name = card.querySelector(".name");
@@ -24,6 +23,8 @@ const clearHistoryBtn = document.getElementById("clear-history");
 const confirmModal = document.getElementById("confirm-modal");
 const confirmDelete = document.getElementById("confirm-delete");
 const cancelDelete = document.getElementById("cancel-delete");
+const seasonFilter = document.getElementById("season-filter");
+
 
 let skip = false;
 let timeouts = [];
@@ -384,6 +385,20 @@ async function openCard() {
 // Event listeners
 btn.addEventListener("click", openCard);
 siu.addEventListener("click", openCongratulation);
+seasonFilter.addEventListener("change", renderHistory);
+function updateSeasonFilterOptions() {
+    const history = JSON.parse(localStorage.getItem("idolHistory") || "[]");
+    const uniqueSeasons = [...new Set(history.map(entry => entry.season))];
+    const select = document.getElementById("season-filter");
+
+    select.innerHTML = '<option value="all">--- ALL ---</option>';
+    uniqueSeasons.forEach(season => {
+        const opt = document.createElement("option");
+        opt.value = season;
+        opt.innerText = season;
+        select.appendChild(opt);
+    });
+}
 
 function saveToHistory(idol) {
     let history = JSON.parse(localStorage.getItem("idolHistory") || "[]");
@@ -399,10 +414,16 @@ function saveToHistory(idol) {
     history = history.slice(0, 100);
     localStorage.setItem("idolHistory", JSON.stringify(history));
     renderHistory();
+    updateSeasonFilterOptions();
 }
 
 function renderHistory() {
-    const history = JSON.parse(localStorage.getItem("idolHistory") || "[]");
+    const filterValue = seasonFilter.value;
+    let history = JSON.parse(localStorage.getItem("idolHistory") || "[]");
+
+    if (filterValue !== "all") {
+        history = history.filter(entry => entry.season === filterValue);
+    }
     historyGrid.innerHTML = "";
     const glowMap = {
         "ICONS": 'glow-icons', 
@@ -494,3 +515,8 @@ confirmModal.addEventListener("click", (e) => {
         unlockBodyScroll();
     }
 });
+
+window.onload = () => {
+    updateSeasonFilterOptions();
+    renderHistory();
+};
