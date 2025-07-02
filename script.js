@@ -68,7 +68,7 @@ const seasonBoosts = {
     'VERSATILE':{ vocal: 0, rap: 0, dance: 0, visual: 0, fan: 0, viral: 0 },
     'RISE UP':{ vocal: 0, rap: 0, dance: 0, visual: 0, fan: 0, viral: 0 },
     'LAST DANCE':{ vocal: 0, rap: 0, dance: 0, visual: 0, fan: 0, viral: 0 }, 
-    'CUP TROPHY':{ vocal: -3, rap: -3, dance: -3, visual: -3, fan: -3, viral: -3 },
+    'CUP TROPHY':{ vocal: -2, rap: -2, dance: -2, visual: -2, fan: -2, viral: -2 },
     'HARD WORKER':{ vocal: 0, rap: 0, dance: 0, visual: 0, fan: 0, viral: 0 }, 
     'LOYAL BOND':{ vocal: 0, rap: 0, dance: 0, visual: 0, fan: 0, viral: 0 }, 
     'ULTIMATE SKILLS':{ vocal: -3, rap: -3, dance: -3, visual: -3, fan: -3, viral: -3 }, 
