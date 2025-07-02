@@ -71,12 +71,12 @@ const seasonBoosts = {
     'CUP TROPHY':{ vocal: -3, rap: -3, dance: -3, visual: -3, fan: -3, viral: -3 },
     'HARD WORKER':{ vocal: 0, rap: 0, dance: 0, visual: 0, fan: 0, viral: 0 }, 
     'LOYAL BOND':{ vocal: 0, rap: 0, dance: 0, visual: 0, fan: 0, viral: 0 }, 
-    'ULTIMATE SKILLS':{ vocal: 0, rap: 0, dance: 0, visual: 0, fan: 0, viral: 0 }, 
+    'ULTIMATE SKILLS':{ vocal: -3, rap: -3, dance: -3, visual: -3, fan: -3, viral: -3 }, 
     'NATIONAL SONG':{ vocal: 0, rap: 0, dance: 0, visual: 0, fan: 0, viral: 0 }, 
-    'TOP CRUSH':{ vocal: 0, rap: 0, dance: 0, visual: 0, fan: 0, viral: 0 }, 
+    'TOP CRUSH':{ vocal: -2, rap: -2, dance: -2, visual: -2, fan: -4, viral: -4 }, 
     'DINOSAUR ROOKIE':{ vocal: 0, rap: 0, dance: 0, visual: 0, fan: 0, viral: 0 }, 
-    'RETURNS':{ vocal: 0, rap: 0, dance: 0, visual: 0, fan: 0, viral: 0 }, 
-    'ANTI HERO':{ vocal: 0, rap: 0, dance: 0, visual: 0, fan: 0, viral: 0 }, 
+    'RETURNS':{ vocal: -3, rap: -3, dance: -3, visual: -3, fan: -4, viral: -4 }, 
+    'ANTI HERO':{ vocal: -2, rap: -2, dance: -2, visual: -2, fan: -3, viral: -3 }, 
     'ONE HIT':{ vocal: 0, rap: 0, dance: 0, visual: 0, fan: 0, viral: 0 }, 
     'MULTIVERSE':{ vocal: 0, rap: 0, dance: 0, visual: 0, fan: 0, viral: 0 }
 };
