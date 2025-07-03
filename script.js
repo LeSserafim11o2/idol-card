@@ -476,6 +476,7 @@ function saveToHistory(idol) {
     }
     updateSeasonFilterOptions();
     checkSeasonUnlock();
+    renderIZONECollection();
 }
 
 function renderHistory() {
