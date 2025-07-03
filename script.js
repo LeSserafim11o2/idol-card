@@ -554,6 +554,7 @@ function renderIZONECollection() {
 }
 
 renderHistory();
+renderIZONECollection();
 
 function lockBodyScroll() {
     document.body.style.overflow = "hidden";
