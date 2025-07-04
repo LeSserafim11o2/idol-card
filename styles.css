@@ -409,6 +409,33 @@ h1 {
     padding: 5px;
     border-bottom-right-radius: 10px;
 }
+.collection-meta {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  margin: 10px 0;
+  font-weight: 600;
+}
+
+.collection-meta p {
+    font-size: 20px;
+}
+.toggle-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+.toggle-container label {
+    margin-right: 10px;
+    font-size: 22px;
+}
+.toggle-container input {
+    accent-color: pink;
+    transform: scale(1.6);
+    margin-right: 10px;
+}
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }

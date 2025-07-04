@@ -5,6 +5,10 @@ const pagination = document.getElementById("pagination");
 const seasonTagContainer = document.getElementById("season-tags");
 const CARDS_PER_PAGE = 30;
 
+const showOpenedCheckbox = document.getElementById("show-opened");
+const showUnopenedCheckbox = document.getElementById("show-unopened");
+const cardCounter = document.getElementById("card-counter");
+
 let currentPage = 1;
 let currentSeasonFilter = "all";
 
@@ -154,8 +158,15 @@ function renderFullCollection() {
     const opened = getOpenedCards();
     let display = processedIdols;
     if (currentSeasonFilter !== "all") {
-        display = processedIdols.filter(i => i.season === currentSeasonFilter);
+        display = display.filter(i => i.season === currentSeasonFilter);
     }
+
+    display = display.filter(i => {
+        const isOpened = opened.includes(i.name);
+        if (!showOpenedCheckbox.checked && isOpened) return false;
+        if (!showUnopenedCheckbox.checked && !isOpened) return false;
+        return true;
+    });
 
     const paged = paginateArray(display, currentPage, CARDS_PER_PAGE);
 
@@ -210,9 +221,12 @@ function renderFullCollection() {
         `;
         fullGrid.appendChild(div);
     });
-
+    cardCounter.innerText = `Opened ${opened.length} /${processedIdols.length} cards`;
     renderPagination(display.length);
 }
+
+showOpenedCheckbox.addEventListener("change", renderFullCollection);
+showUnopenedCheckbox.addEventListener("change", renderFullCollection);
 
 // Setup
 generateSeasonTags();
