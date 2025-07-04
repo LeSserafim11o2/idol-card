@@ -18,12 +18,6 @@ const btn = document.getElementById("open-btn");
 const siu = document.getElementById("siu-btn");
 const loadingOverlay = document.getElementById("loading-overlay");
 
-const historyGrid = document.getElementById("history-grid");
-const clearHistoryBtn = document.getElementById("clear-history");
-const confirmModal = document.getElementById("confirm-modal");
-const confirmDelete = document.getElementById("confirm-delete");
-const cancelDelete = document.getElementById("cancel-delete");
-const seasonFilter = document.getElementById("season-filter");
 const packLabel = document.getElementById("pack-label");
 const packSelect = document.getElementById("season-pack");
 
@@ -58,7 +52,7 @@ const seasonBoosts = {
     "NEW GEN":    { vocal: -2, rap: -2, dance: -2, visual: -2, fan: -2, viral: -2 },
     "UNSUNG IDOLS": { vocal: -3, rap: -3, dance: -3, visual: -3, fan: -3, viral: -3 },
     "NATIONALLY": { vocal: -3, rap: -3, dance: -3, visual: -3, fan: -3, viral: -3 },
-    "SURVIVAL": { vocal: 0, rap: 0, dance: 0, visual: 0, fan: 0, viral: 0 },
+    "SURVIVAL": { vocal: 2, rap: 2, dance: 2, visual: 2, fan: 2, viral: 2 },
     "GROUP'S FACE": { vocal: 0, rap: 0, dance: 0, visual: 0, fan: 0, viral: 0 },
     "LONE RANGER": { vocal: -5, rap: -5, dance: -5, visual: -5, fan: -5, viral: -5 },
     "BEST VOICE": { vocal: -5, rap: -5, dance: -5, visual: -5, fan: -5, viral: -5 },
@@ -66,22 +60,22 @@ const seasonBoosts = {
     "TOP VISUAL": { vocal: -5, rap: -5, dance: -5, visual: -5, fan: -5, viral: -5 },
     "RAP COOL": { vocal: -5, rap: -5, dance: -5, visual: -5, fan: -5, viral: -5 },
     'FOREIGN SOLDIER': { vocal: 0, rap: 0, dance: 0, visual: 0, fan: 0, viral: 0 },
-    'PRE DEBUT': { vocal: 0, rap: 0, dance: 0, visual: 0, fan: 0, viral: 0 },
+    'PRE DEBUT': { vocal: 2, rap: 2, dance: 2, visual: 2, fan: 2, viral: 2 },
     'SPORT LIGHT':{ vocal: 0, rap: 0, dance: 0, visual: 0, fan: 0, viral: 0 },
     'VERSATILE':{ vocal: 0, rap: 0, dance: 0, visual: 0, fan: 0, viral: 0 },
     'RISE UP':{ vocal: 0, rap: 0, dance: 0, visual: 0, fan: 0, viral: 0 },
     'LAST DANCE':{ vocal: 0, rap: 0, dance: 0, visual: 0, fan: 0, viral: 0 }, 
     'CUP TROPHY':{ vocal: -2, rap: -2, dance: -2, visual: -2, fan: -2, viral: -2 },
     'HARD WORKER':{ vocal: 0, rap: 0, dance: 0, visual: 0, fan: 0, viral: 0 }, 
-    'LOYAL BOND':{ vocal: 0, rap: 0, dance: 0, visual: 0, fan: 0, viral: 0 }, 
+    'LOYAL BOND':{ vocal: -2, rap: -2, dance: -2, visual: -2, fan: -2, viral: -2 }, 
     'ULTIMATE SKILLS':{ vocal: -3, rap: -3, dance: -3, visual: -3, fan: -3, viral: -3 }, 
-    'NATIONAL SONG':{ vocal: 0, rap: 0, dance: 0, visual: 0, fan: 0, viral: 0 }, 
+    'NATIONAL SONG':{ vocal: -2, rap: -2, dance: -2, visual: -2, fan: -3, viral: -3 }, 
     'TOP CRUSH':{ vocal: -2, rap: -2, dance: -2, visual: -2, fan: -4, viral: -4 }, 
     'DINOSAUR ROOKIE':{ vocal: 0, rap: 0, dance: 0, visual: 0, fan: 0, viral: 0 }, 
-    'RETURNS':{ vocal: -3, rap: -3, dance: -3, visual: -3, fan: -4, viral: -4 }, 
+    'RETURNS':{ vocal: -1, rap: -1, dance: -1, visual: -1, fan: -4, viral: -4 }, 
     'ANTI HERO':{ vocal: -2, rap: -2, dance: -2, visual: -2, fan: -3, viral: -3 }, 
     'ONE HIT':{ vocal: 0, rap: 0, dance: 0, visual: 0, fan: 0, viral: 0 }, 
-    'MULTIVERSE':{ vocal: 0, rap: 0, dance: 0, visual: 0, fan: 0, viral: 0 }
+    'MULTIVERSE':{ vocal: -2, rap: -2, dance: -2, visual: -2, fan: -3, viral: -3 }
 };
 
 function calculateOverall(stats, role) {
@@ -426,21 +420,6 @@ async function openCard() {
 // Event listeners
 btn.addEventListener("click", openCard);
 siu.addEventListener("click", openCongratulation);
-seasonFilter.addEventListener("change", renderHistory);
-
-function updateSeasonFilterOptions() {
-    const history = JSON.parse(localStorage.getItem("idolHistory") || "[]");
-    const uniqueSeasons = [...new Set(history.map(entry => entry.season))];
-    const select = document.getElementById("season-filter");
-
-    select.innerHTML = '<option value="all">--- ALL ---</option>';
-    uniqueSeasons.forEach(season => {
-        const opt = document.createElement("option");
-        opt.value = season;
-        opt.innerText = season;
-        select.appendChild(opt);
-    });
-}
 
 function saveToHistory(idol) {
     let history = JSON.parse(localStorage.getItem("idolHistory") || "[]");
@@ -455,7 +434,12 @@ function saveToHistory(idol) {
     });
     history = history.slice(0, 100);
     localStorage.setItem("idolHistory", JSON.stringify(history));
-    renderHistory();
+
+    let opened = JSON.parse(localStorage.getItem("openedIdols") || "[]");
+    if (!opened.includes(idol.name)) {
+        opened.push(idol.name);
+        localStorage.setItem("openedIdols", JSON.stringify(opened));
+    }
 
     // Save IZ*ONE SPECIAL
     if (idol.season === "IZ*ONE SPECIAL") {
@@ -474,94 +458,7 @@ function saveToHistory(idol) {
             localStorage.setItem("izoneCollection", JSON.stringify(izoneCollection));
         }
     }
-    updateSeasonFilterOptions();
     checkSeasonUnlock();
-    renderIZONECollection();
-}
-
-function renderHistory() {
-    const filterValue = seasonFilter.value;
-    let history = JSON.parse(localStorage.getItem("idolHistory") || "[]");
-
-    if (filterValue !== "all") {
-        history = history.filter(entry => entry.season === filterValue);
-    }
-    historyGrid.innerHTML = "";
-    const glowMap = {
-        "ICONS": 'glow-icons', 
-        "TOP STARS": 'glow-top-stars', 
-        "IZ*ONE SPECIAL": 'glow-izone-special', 
-        "NEW GEN": 'glow-new-gen', 
-        "UNSUNG IDOLS": 'glow-unsung-idols', 	
-        "NATIONALLY": 'glow-nationally', 
-        "SURVIVAL": 'glow-survival',
-        "GROUP'S FACE": 'glow-group-face', 
-        "LONE RANGER": 'glow-lone-ranger', 
-        "BEST VOICE": 'glow-best-voice', 
-        "DANCE MACHINE": 'glow-dance-machine', 
-        "TOP VISUAL": 'glow-top-visual', 
-        "RAP COOL": 'glow-rap-cool',
-        'FOREIGN SOLDIER': 'glow-foreign-soldier', 
-        'PRE DEBUT': 'glow-pre-debut', 
-        'SPORT LIGHT': 'glow-sport-light',
-        'VERSATILE': 'glow-versatile',
-        'RISE UP': 'glow-rise-up',
-        'LAST DANCE': 'glow-last-dance', 
-	    'CUP TROPHY': 'glow-cup-trophy',
-        'HARD WORKER': 'glow-hard-worker',
-        'LOYAL BOND': 'glow-loyal-bond',
-        'ULTIMATE SKILLS': 'glow-ultimate-skills',
-        'NATIONAL SONG': 'glow-national-song',
-        'TOP CRUSH': 'glow-top-crush',
-        'DINOSAUR ROOKIE': 'glow-dinosaur-rookie',
-        'RETURNS': 'glow-returns',
-        'ANTI HERO': 'glow-anti-hero',
-        'ONE HIT': 'glow-one-hit',
-        'MULTIVERSE': 'glow-multiverse'
-    };
-    history.forEach(entry => {
-        const div = document.createElement("div");
-        div.className = `history-card ${glowMap[entry.season] || ""}`;
-        div.innerHTML = `
-            <img src="${entry.avatar}" alt="${entry.name}" class="history-card-avatar">
-            <h3>${entry.name}</h3>
-            <p>${entry.season}</p>
-            <div class="history-card-group-wrapper"><img src="${entry.group}" alt="${entry.name}" class="history-card-group"></div>
-            <h2>${entry.overall}</h2>
-            <img src="${entry.country}" alt="${entry.country}" class="history-card-country">
-        `;
-        historyGrid.appendChild(div);
-    });
-}
-
-function renderIZONECollection() {
-    const izone = JSON.parse(localStorage.getItem("izoneCollection") || "[]");
-    const grid = document.getElementById("izone-grid");
-    grid.innerHTML = "";
-
-    izone.forEach(entry => {
-        const div = document.createElement("div");
-        div.className = `history-card glow-izone-special`;
-        div.innerHTML = `
-            <img src="${entry.avatar}" alt="${entry.name}" class="history-card-avatar">
-            <h3>${entry.name}</h3>
-            <p>${entry.season}</p>
-            <div class="history-card-group-wrapper"><img src="${entry.group}" class="history-card-group"></div>
-            <h2>${entry.overall}</h2>
-            <img src="${entry.country}" alt="${entry.country}" class="history-card-country">
-        `;
-        grid.appendChild(div);
-    });
-}
-
-renderHistory();
-renderIZONECollection();
-
-function lockBodyScroll() {
-    document.body.style.overflow = "hidden";
-}
-function unlockBodyScroll() {
-    document.body.style.overflow = "";
 }
 
 skipBtn.addEventListener("click", () => {
@@ -575,33 +472,6 @@ document.addEventListener("keydown", (e) => {
     }
 });
 
-clearHistoryBtn.addEventListener("click", () => {
-    confirmModal.classList.remove("hidden");
-    lockBodyScroll();
-});
-
-confirmDelete.addEventListener("click", () => {
-    localStorage.removeItem("idolHistory");
-    renderHistory();
-    confirmModal.classList.add("hidden");
-    unlockBodyScroll();
-});
-
-cancelDelete.addEventListener("click", () => {
-    confirmModal.classList.add("hidden");
-    unlockBodyScroll();
-});
-
-confirmModal.addEventListener("click", (e) => {
-    if (e.target === confirmModal) {
-        confirmModal.classList.add("hidden");
-        unlockBodyScroll();
-    }
-});
-
 window.onload = () => {
-    updateSeasonFilterOptions();
-    renderHistory();
-    renderIZONECollection();
     checkSeasonUnlock();
 };

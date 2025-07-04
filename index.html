@@ -85,31 +85,12 @@
         <p id="unlock-msg" class="unlock-msg">OPEN CHOOSE SEASON MODE BY OPEN 12 IZ*ONE SPECIAL CARD</p>
     </div>
 
-    <div class="izone-collection-container">
-        <h2>IZ*ONE Collection (12 members)</h2>
-        <div id="izone-grid" class="history-grid"></div>
-    </div>
+    <div id="season-tags" class="tag-container"></div>
 
-    <div class="history-container">
-        <h2>Open Card History</h2>
-        <button id="clear-history" class="btn">Delete History</button>
-        <div class="season-filter-container">
-            <label for="season-filter">Filter Season</label>
-            <select id="season-filter">
-                <option value="all">--- ALL ---</option>
-            </select>
-        </div>
-        <div id="history-grid" class="history-grid"></div>
-    </div>
-
-    <div id="confirm-modal" class="modal hidden">
-        <div class="modal-content">
-            <p>Are you sure to delete history?</p>
-            <button id="confirm-delete" class="btn">Remove</button>
-            <button id="cancel-delete" class="btn">Cancel</button>
-        </div>
-    </div>
+    <div id="full-card-grid" class="history-grid"></div>
+    <div id="pagination" class="pagination"></div>
 
     <script src="script.js" type="module" defer></script>
+    <script src="collection.js" type="module" defer></script>
 </body>
 </html>
