@@ -88,10 +88,22 @@ const processedIdols = idols.map(idol => {
 function getOpenedCards() {
     const history = JSON.parse(localStorage.getItem("idolHistory") || "[]");
     const izone = JSON.parse(localStorage.getItem("izoneCollection") || "[]");
-
-    const allOpened = [...history, ...izone];
-    const names = [...new Set(allOpened.map(card => card.name))];
-    return names;
+    
+    const allCards = new Set();
+    
+    history.forEach(card => {
+        if (card.name && card.season) {
+            allCards.add(`${card.name}|${card.season}`);
+        }
+    });
+    
+    izone.forEach(card => {
+        if (card.name && card.season) {
+            allCards.add(`${card.name}|${card.season}`);
+        }
+    });
+    
+    return Array.from(allCards);
 }
 
 function generateSeasonTags() {
@@ -109,9 +121,16 @@ function generateSeasonTags() {
         if (e.target.dataset.season) {
             currentSeasonFilter = e.target.dataset.season;
             currentPage = 1;
-        renderFullCollection();
+
+            document.querySelectorAll(".tag").forEach(tag => {
+                tag.classList.remove("active");
+            });
+            e.target.classList.add("active");
+
+            renderFullCollection();
         }
     });
+    seasonTagContainer.querySelector('[data-season="all"]').classList.add("active");
 }
 
 function paginateArray(array, page, perPage) {
@@ -156,13 +175,16 @@ function renderPagination(total) {
 
 function renderFullCollection() {
     const opened = getOpenedCards();
+    cardCounter.innerText = `Opened ${opened.length} /${processedIdols.length} cards`;
+    
     let display = processedIdols;
     if (currentSeasonFilter !== "all") {
         display = display.filter(i => i.season === currentSeasonFilter);
     }
 
     display = display.filter(i => {
-        const isOpened = opened.includes(i.name);
+        const cardKey = `${i.name}|${i.season}`;
+        const isOpened = opened.includes(cardKey);
         if (!showOpenedCheckbox.checked && isOpened) return false;
         if (!showUnopenedCheckbox.checked && !isOpened) return false;
         return true;
@@ -173,7 +195,8 @@ function renderFullCollection() {
     fullGrid.innerHTML = "";
     paged.forEach(idol => {
         const div = document.createElement("div");
-        const openedBefore = opened.includes(idol.name);
+        const cardKey = `${idol.name}|${idol.season}`;
+        const openedBefore = opened.includes(cardKey);
         const glowMap = {
             "ICONS": "glow-icons",
             "TOP STARS": "glow-top-stars",
@@ -207,7 +230,7 @@ function renderFullCollection() {
             "MULTIVERSE": "glow-multiverse"
         };
         const glowClass = glowMap[idol.season];
-        div.className = `history-card ${openedBefore && glowClass ? glowClass : "unopened"}`;
+        div.className = `history-card ${openedBefore ? (glowClass || "opened") : "unopened"}`;
 
         div.innerHTML = `
             <img src="${idol.img}" alt="${idol.name}" class="history-card-avatar">
@@ -221,9 +244,9 @@ function renderFullCollection() {
         `;
         fullGrid.appendChild(div);
     });
-    cardCounter.innerText = `Opened ${opened.length} /${processedIdols.length} cards`;
     renderPagination(display.length);
 }
+window.renderFullCollection = renderFullCollection;
 
 showOpenedCheckbox.addEventListener("change", renderFullCollection);
 showUnopenedCheckbox.addEventListener("change", renderFullCollection);

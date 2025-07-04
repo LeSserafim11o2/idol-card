@@ -436,8 +436,9 @@ function saveToHistory(idol) {
     localStorage.setItem("idolHistory", JSON.stringify(history));
 
     let opened = JSON.parse(localStorage.getItem("openedIdols") || "[]");
-    if (!opened.includes(idol.name)) {
-        opened.push(idol.name);
+    const cardKey = `${idol.name}|${idol.season}`;
+    if (!opened.includes(cardKey)) {
+        opened.push(cardKey);
         localStorage.setItem("openedIdols", JSON.stringify(opened));
     }
 
@@ -459,6 +460,9 @@ function saveToHistory(idol) {
         }
     }
     checkSeasonUnlock();
+    if (window.renderFullCollection) {
+        window.renderFullCollection();
+    }
 }
 
 skipBtn.addEventListener("click", () => {

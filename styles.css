@@ -353,6 +353,10 @@ h1 {
     cursor: pointer;
     color: #fff;
 }
+.tag-container .tag.active {
+    background-color: #ff90c2;
+    color: white;
+}
 .history-card img.history-card-avatar {
     width: 100%;
     height: 250px;
