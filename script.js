@@ -436,7 +436,7 @@ function saveToHistory(idol) {
     localStorage.setItem("idolHistory", JSON.stringify(history));
 
     let opened = JSON.parse(localStorage.getItem("openedIdols") || "[]");
-    const cardKey = `${idol.name}|${idol.season}`;
+    const cardKey = `${idol.name}|${idol.group}|${idol.season}`;
     if (!opened.includes(cardKey)) {
         opened.push(cardKey);
         localStorage.setItem("openedIdols", JSON.stringify(opened));

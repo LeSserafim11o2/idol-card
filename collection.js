@@ -86,24 +86,7 @@ const processedIdols = idols.map(idol => {
 });
 
 function getOpenedCards() {
-    const history = JSON.parse(localStorage.getItem("idolHistory") || "[]");
-    const izone = JSON.parse(localStorage.getItem("izoneCollection") || "[]");
-    
-    const allCards = new Set();
-    
-    history.forEach(card => {
-        if (card.name && card.season) {
-            allCards.add(`${card.name}|${card.season}`);
-        }
-    });
-    
-    izone.forEach(card => {
-        if (card.name && card.season) {
-            allCards.add(`${card.name}|${card.season}`);
-        }
-    });
-    
-    return Array.from(allCards);
+    return JSON.parse(localStorage.getItem("openedIdols") || "[]");
 }
 
 function generateSeasonTags() {
@@ -183,11 +166,12 @@ function renderFullCollection() {
     }
 
     display = display.filter(i => {
-        const cardKey = `${i.name}|${i.season}`;
+        const cardKey = `${i.name}|${i.group}|${i.season}`;
         const isOpened = opened.includes(cardKey);
-        if (!showOpenedCheckbox.checked && isOpened) return false;
-        if (!showUnopenedCheckbox.checked && !isOpened) return false;
-        return true;
+
+        if (showOpenedCheckbox.checked && isOpened) return true;
+        if (showUnopenedCheckbox.checked && !isOpened) return true;
+        return false;
     });
 
     const paged = paginateArray(display, currentPage, CARDS_PER_PAGE);
@@ -195,7 +179,7 @@ function renderFullCollection() {
     fullGrid.innerHTML = "";
     paged.forEach(idol => {
         const div = document.createElement("div");
-        const cardKey = `${idol.name}|${idol.season}`;
+        const cardKey = `${idol.name}|${idol.group}|${idol.season}`;
         const openedBefore = opened.includes(cardKey);
         const glowMap = {
             "ICONS": "glow-icons",
