@@ -232,8 +232,14 @@ function renderFullCollection() {
 }
 window.renderFullCollection = renderFullCollection;
 
-showOpenedCheckbox.addEventListener("change", renderFullCollection);
-showUnopenedCheckbox.addEventListener("change", renderFullCollection);
+showOpenedCheckbox.addEventListener("change", () => {
+    currentPage = 1;
+    renderFullCollection();
+});
+showUnopenedCheckbox.addEventListener("change", () => {
+    currentPage = 1;
+    renderFullCollection();
+});
 
 // Setup
 generateSeasonTags();
